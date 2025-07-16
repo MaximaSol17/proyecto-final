@@ -58,3 +58,8 @@ app.delete('/reservas/:id', (req, res) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
     res.send('Reserva Eliminada');
 })
+
+//inicio el servidor para que lea lineas http en el puerto pedido
+app.listen(PORT, () => {
+    console.log('Backend corriendo en http://localhost:${PORT}');
+})
