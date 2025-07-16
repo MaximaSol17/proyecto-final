@@ -26,12 +26,10 @@ app.get('/reservas/:id', (req, res) => {
 })
 
 //recibe y guarda una nueva reserva en reservas.json//
-//uso el metodo POST para que se ejecute cuando alguien envíe datos desde el formulario//
 app.post('/reservas', (req, res) => {
     const data = JSON.parse(fs.readFileSync(filePath));
     //la siguiente linea crea una nueva reserva; el id data.length +1 genera un nuevo id automatico y el req.body suma todos los datos que envió el usuario
     const nuevaReserva = { id: data.length +1, ...req.body };
-    //agrego la reserva:
     data.push(nuevaReserva);
     //null 2 es para que tenga indentacion
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
@@ -39,4 +37,15 @@ app.post('/reservas', (req, res) => {
     res.status(201).json(nuevaReserva);
 })
 
+//editar una reserva existente
+app.put('/reservas/:id', (req, res) => {
+    let data = JSON.parse(fs.readFileSync(filePath));
+    //busco el objeto en data que tenga el id solicitado, req.params.id contiene el id, el findIndex devuelve el numero de posicion si fue exitoso, o -1 si no lo encuentra
+    const index = data.findIndex(r =>  r.id == req.params.id);
+    //si no lo encuentra devuelve el mensaje de error 404 y corta la ejecucuion con return
+    if (index === -1) return res.status(404).send('No Encontrada');
+    data[index] = {...data[index], ...req.body };
+    fs.write.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    res.json(data[index]);
+})
 
