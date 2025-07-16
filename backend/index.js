@@ -45,7 +45,16 @@ app.put('/reservas/:id', (req, res) => {
     //si no lo encuentra devuelve el mensaje de error 404 y corta la ejecucuion con return
     if (index === -1) return res.status(404).send('No Encontrada');
     data[index] = {...data[index], ...req.body };
+    //sobreescribo el archivo:
     fs.write.writeFileSync(filePath, JSON.stringify(data, null, 2));
     res.json(data[index]);
 })
 
+//eliminar reserva
+app.delete('/reservas/:id', (req, res) => {
+    let data = JSON.parse(fs.readFileSync(filePath));
+    //con data.filter creo un nuevo array pero sin el id al que se quiere eliminar, por eso uso !=, excluye esa reserva
+    data = data.filter(r => r.id != req.params.id);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    res.send('Reserva Eliminada');
+})
