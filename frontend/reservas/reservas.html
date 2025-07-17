@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es"> 
+    <head>
+        <meta charset="UTF-8" /> 
+        <title>Reservas</title></title>
+        <link rel="stylesheet" href="estilos.css">
+    </head>
+    <body>
+        <section id="reservas" class="reservas-section">
+            <h2>Reservas</h2>
+            <form id="form-reserva">
+                <label>Nombre y Apellido</label>
+                <input type="text" name="nombre_cliente" required><br>
+                <label>Fecha deseada:</label>
+                <input Type="date" name="fecha_reserva" required><br>
+                <label>Hora:</label>
+                <input type="time" name="hora" required><br>
+                <label>Cantidad de personas:</label>
+                <input type="number" name="cantidad_personas" required><br>
+                <label>Estado:</label>
+                <select name="estado" required>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="confirmada">Confirmada</option>
+                    <option value="cancelada">Cancelada</option>
+                </select><br>
+                <button type="submit">Guardar reserva</button>
+            </form>
+            </table>
+        </section>
+        <script src="reservas.js"></script>
+    </body>
+</html>
