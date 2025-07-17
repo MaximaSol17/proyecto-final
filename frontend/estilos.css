@@ -69,9 +69,9 @@ nav a:hover {
     font-size: 40px;
     margin: 0;
     font-family: 'Libertinus Mono', monospace;
-    color: #fff;                    /* Blanco brillante */
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); /* Sombra para contraste */
-    letter-spacing: 2px;            /* Espaciado entre letras */
+    color: #fff;                    
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); 
+    letter-spacing: 2px;            
     text-transform: uppercase;
 }
 
