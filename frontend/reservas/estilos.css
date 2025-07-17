@@ -18,8 +18,6 @@ h2 {
 .reservas-section {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Alinea arriba */
-    padding-top: 0px; 
     height: 100vh;
 } 
 
