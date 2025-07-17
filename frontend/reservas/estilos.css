@@ -1,36 +1,36 @@
 body {
-    background-image: url("https://image.slidesdocs.com/responsive-images/background/clean-business-simple-splice-creative-green-powerpoint-background_4a032eb92a__960_540.jpg");
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
     background-color: rgb(246, 248, 247);
     background-size: cover;
     background-position: center;
     height: 85vh;
-    color: black;
-    margin: 20px;
-    text-align: center;
-    
+    color: white;
+    margin: 40px;
 }
 
 h2 {
     font-size: 40px;
     margin-bottom: 20px;
-    color:black;
+    color:white;
     font-style: italic;
 }
 
 .reservas-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Alinea arriba */
+    padding-top: 0px; 
     height: 100vh;
 } 
 
 form {
-    border: 2px solid #78c6fa;
-    padding: 50px;
+    border: 2px solid white;
+    padding: 40px;
     margin-bottom: 20px;
     max-width: 400px;
-    
+    width: 100%;
+    box-shadow: 0 5px 10px red;
+    border-radius: 10px;
 }
 
 form input,
@@ -40,7 +40,7 @@ form select {
     margin: 10px 0;
     font-size: 16px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 form button {
@@ -50,5 +50,9 @@ form button {
     border-radius: 5px;
     cursor: pointer;
     font-style: italic;
+}
+
+form button:hover {
+    background-color: rgb(224, 224, 156);
 }
 
