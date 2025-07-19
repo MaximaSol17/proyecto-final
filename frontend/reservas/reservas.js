@@ -1,4 +1,7 @@
 const form = document.getElementById('form-reserva');
+const data = Object.fromEntries(new FormData(form));
+const cliente_id = localStorage.getItem('cliente_id');
+data.cliente_id = cliente_id;
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();   //lo hago para evitar que la pagina se recargue al hacer submit
@@ -18,3 +21,4 @@ form.addEventListener('submit', async (e) => {
         alert('Error al crear la reserva')
     }
 });
+

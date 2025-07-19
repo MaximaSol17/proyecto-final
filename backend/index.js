@@ -50,13 +50,13 @@ app.get('/reservas/:id', (req, res) => {
 
 //recibe y guarda una nueva reserva en reservas.json//
 app.post('/reservas', (req, res) => {
-    const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado } = req.body;
+    const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
     const sql = `
-    INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id)
+    VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado], (err, results) => {
+    db.query(sql, [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({ id: results.insertId, ...req.body });
     })
