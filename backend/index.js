@@ -1,23 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const mysql = require('mysql2');
 const app = express();
 const PORT = 3000;
+const { Client } = require('pg');
 
-const db = mysql.createConnection({
+const db = new Client({
     host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'reservas'
-})
+    user: 'postgres',
+    password: 'breakingbar',
+    database: 'reservas',
+    port: 5432, 
+});
 
 db.connect((err) => {
     if (err) {
-        console.error('Error al conectar a MySQL:', err.message);
+        console.error('Error al conectar a PostgreSQL:', err.message);
         return;
     }
-    console.log('Conectado a la base de datos MySQL');
+    console.log('Conectado a la base de datos PostgreSQL');
 })
 
 app.use(express.json());

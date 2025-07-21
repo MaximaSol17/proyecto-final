@@ -14,7 +14,7 @@ form.addEventListener('submit', async (e) => {
     const idEditando = form.dataset.editando;
 
     const res = await fetch(
-        idEditando ? http://localhost:3000/reservas/${idEditando} : 'http://localhost:3000/reservas', 
+        idEditando ? `http://localhost:3000/reservas/${idEditando}` : 'http://localhost:3000/reservas', 
         {
             method: idEditando ? 'PUT' : 'POST',
             headers: { 'Content-Type': 'application/json' },
