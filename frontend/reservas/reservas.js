@@ -39,7 +39,7 @@ async function cargarReservas() {
     const res = await fetch(`http://localhost:3000/reservas/cliente/${cliente_id}`);
     const reservas = await res.json();
 
-    const contenedor = document.getElementById('lista-reservas');
+    const contenedor = document.getElementById('lista-reservas') || document.getElementById('contenedor-reservas');
     contenedor.innerHTML = ''; //limpio antes de cargar nuevas reservas
 
     if (reservas.length === 0) {
