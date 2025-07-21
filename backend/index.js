@@ -23,8 +23,6 @@ db.connect((err) => {
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')))
 
-const filePath = path.join(__dirname, 'data', 'reservas.json');
-
 //para que lea la lista completa de reservas//
 app.get('/reservas', (req, res) => {
     db.query('SELECT * FROM reservas', (err, results) => {
@@ -39,7 +37,7 @@ app.get('/reservas/:id', (req, res) => {
     const sql = 'SELECT * FROM reservas WHERE id = ?';
     db.query(sql, [id], (err,results) => {
         if (err)return res.status(500).json({ error: err.message });
-        if (results.lengh === 0) {
+        if (results.length === 0) {
             res.status(404).send('Reserva no encontrada');
         }
         else {
@@ -48,13 +46,24 @@ app.get('/reservas/:id', (req, res) => {
     })
 })
 
+//obtiene solo las reservas del cliente que inicio sesion
+app.get('/reservas/cliente/:cliente_id', (req, res) => {
+    const cliente_id = req.params.cliente_id;
+    const sql = 'SELECT * FROM reservas WHERE cliente_id = ?';
+
+    db.query(sql, [cliente_id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
 //recibe y guarda una nueva reserva en reservas.json//
 app.post('/reservas', (req, res) => {
     const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
-    const sql = `
-    INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id)
-    VALUES (?, ?, ?, ?, ?, ?)
-    `;
+    const sql = 
+     `INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id)
+      VALUES (?, ?, ?, ?, ?, ?)`
+    ;
 
     db.query(sql, [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -112,4 +121,4 @@ app.delete('/reservas/:id', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+}); 
