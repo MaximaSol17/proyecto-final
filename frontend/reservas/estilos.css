@@ -54,3 +54,39 @@ form button:hover {
     background-color: rgb(224, 224, 156);
 }
 
+/*comienzo dando color a mis-reservas*/
+.lista-reservas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+}
+
+.reserva-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.reserva-item p {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 18px;
+}
+
+.reserva-item button {
+    margin-right: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-style: italic;
+}
+
+.reserva-item button:hover {
+    background-color: rgb(224, 224, 156);
+}

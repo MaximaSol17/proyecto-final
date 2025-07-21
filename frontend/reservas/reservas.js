@@ -36,17 +36,25 @@ form.addEventListener('submit', async (e) => {
 
 async function cargarReservas() {
     const cliente_id = localStorage.getItem('cliente_id');
-    const res = await fetch(http://localhost:3000/reservas/cliente/${cliente_id});
+    const res = await fetch(`http://localhost:3000/reservas/cliente/${cliente_id}`);
     const reservas = await res.json();
 
+    const contenedor = document.getElementById('lista-reservas');
+    contenedor.innerHTML = ''; //limpio antes de cargar nuevas reservas
+
+    if (reservas.length === 0) {
+    contenedor.innerHTML = "<p>No tenés reservas registradas.</p>";
+    return;
+    }
+
     reservas.forEach(r => {
-        const item = document.createElement('div');
-        item.innerHTML = 
+        item.classList.add('reserva-item');
+        item.innerHTML = `
            <p><strong>${r.nombre_cliente}</strong> - ${r.fecha_reserva} a las ${r.hora} (${r.estado})</p>
            <button onclick="editarReserva(${r.id})">editar</button>
            <button onclick="eliminarReserva(${r.id})">Eliminar</button>
            <hr/>
-        ;
+        `;
         contenedor.appendChild(item);
     });
 }
@@ -55,7 +63,7 @@ cargarReservas();
 async function eliminarReserva(id) {
     if (!confirm("¡Estas seguro que quieres eliminar esta reserva?")) return;
 
-    const res = await fetch(http://localhost:3000/reservas/${id}, {
+    const res = await fetch(`http://localhost:3000/reservas/${id}`, {
         method: 'DELETE'
     });
     if (res.ok) {
@@ -68,7 +76,7 @@ async function eliminarReserva(id) {
 }
 
 async function editarReserva(id) {
-    const res = await fetch(http://localhost:3000/reservas/${id});
+    const res = await fetch(`http://localhost:3000/reservas/${id}`);
     const reserva = await res.json();
     //recorro cada campo y verifica si existe
     for (const campo in reserva) {
