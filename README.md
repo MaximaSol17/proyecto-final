@@ -1,8 +1,5 @@
 # proyecto-final
-sitio web de compra de entradas de eventos en linea
-
-
-
+sitio web de bar para reservas de mesa
 
 Reservas
 -id
@@ -27,6 +24,7 @@ Menu
 -precio
 -tipo
 -disponible
+-pedidos
 
 
 -Estructura de la base de datos:
@@ -34,7 +32,7 @@ Menu
 Create table reservas {
 
     id serial primary key,
-    cliente_id int,
+    cliente_id int REFERENCES clientes (id),
     fecha_reserva varchar(100),
     hora varchar(100),
     cantidad_personas int,
@@ -58,4 +56,5 @@ Create table menu {
     precio int,
     tipo varchar(100),
     disponible bool,
+    pedidos int REFERENCES clientes (id)
 }
