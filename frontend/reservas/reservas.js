@@ -1,15 +1,20 @@
 const form = document.getElementById('form-reserva');
-const contenedor = document.getElementById('lista-reservas');
 
 if (!localStorage.getItem('cliente_id')) {
     alert('Primero ingresa a Breaking BAR');
-    window.location.href = 'clientes.html'; //PASAR HTML DE SOFI
+    window.location.href = 'clientes.html';
 }
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();   //lo hago para evitar que la pagina se recargue al hacer submit
     const data = Object.fromEntries(new FormData(form));  //esto va a tener los valores del formulario
     data.cliente_id = localStorage.getItem('cliente_id');
+
+    //agrego funcion por si el usuario deja campos en blanco
+    if (!data.nombre_cliente || !data.fecha_reserva || !data.hora || !data.cantidad_personas) {
+        alert("Por favor cpmpleta los campos obligatorios");
+        return;
+    }
 
     const idEditando = form.dataset.editando;
 
@@ -48,6 +53,7 @@ async function cargarReservas() {
     }
 
     reservas.forEach(r => {
+        const item = document.createElement('div');
         item.classList.add('reserva-item');
         item.innerHTML = `
            <p><strong>${r.nombre_cliente}</strong> - ${r.fecha_reserva} a las ${r.hora} (${r.estado})</p>
