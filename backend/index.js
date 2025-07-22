@@ -1,65 +1,124 @@
 const express = require('express');
-const fs = require('fs');
+const cors = require('cors');
 const path = require('path');
+const mysql = require('mysql2');
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'reservas'
+})
 
-const filePath = path.join(__dirname, 'data', 'reservas.json');
+db.connect((err) => {
+    if (err) {
+        console.error('Error al conectar a MySQL:', err.message);
+        return;
+    }
+    console.log('Conectado a la base de datos MySQL');
+})
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend')))
 
 //para que lea la lista completa de reservas//
-//req es la solicitud, res es la respuesta///
 app.get('/reservas', (req, res) => {
-    const data = JSON.parse(fs.readFileSync(filePath));
-    res.json(data);
+    db.query('SELECT * FROM reservas', (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    })
 })
 
 //para pedir una reserva por su id//
 app.get('/reservas/:id', (req, res) => {
-    //lo que sigue, convierte el contenido del archivo de texto a un array de java usando JSON.parse// 
-    const data = JSON.parse(fs.readFileSync(filePath));
-    //lo siguiente, busco dentro de data que coincida el id con el valor enviado, luego uso el find para que me devuelva el primero que cumpla  //
-    const reserva = data.find(r => r.id == req.params.id);
-    //lo siguiente es para que si se encuentra la reserva devuelve la reserva y si no se encontro devuelve el erro 404 not found//
-    reserva ? res.json(reserva) : res.status(404).send('no encontrada');
+    const id = req.params.id;
+    const sql = 'SELECT * FROM reservas WHERE id = ?';
+    db.query(sql, [id], (err,results) => {
+        if (err)return res.status(500).json({ error: err.message });
+        if (results.length === 0) {
+            res.status(404).send('Reserva no encontrada');
+        }
+        else {
+            res.json(results[0]);
+        }
+    })
 })
+
+//obtiene solo las reservas del cliente que inicio sesion
+app.get('/reservas/cliente/:cliente_id', (req, res) => {
+    const cliente_id = req.params.cliente_id;
+    const sql = 'SELECT * FROM reservas WHERE cliente_id = ?';
+
+    db.query(sql, [cliente_id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
 
 //recibe y guarda una nueva reserva en reservas.json//
 app.post('/reservas', (req, res) => {
-    const data = JSON.parse(fs.readFileSync(filePath));
-    //la siguiente linea crea una nueva reserva; el id data.length +1 genera un nuevo id automatico y el req.body suma todos los datos que envió el usuario
-    const nuevaReserva = { id: data.length +1, ...req.body };
-    data.push(nuevaReserva);
-    //null 2 es para que tenga indentacion
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    //el codigo 201 es cuando se creó con exito, y devuelve la nueva reserva
-    res.status(201).json(nuevaReserva);
+    const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
+    const sql = 
+     `INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id)
+      VALUES (?, ?, ?, ?, ?, ?)`
+    ;
+
+    db.query(sql, [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ id: results.insertId, ...req.body });
+    })
 })
 
 //editar una reserva existente
 app.put('/reservas/:id', (req, res) => {
-    let data = JSON.parse(fs.readFileSync(filePath));
-    //busco el objeto en data que tenga el id solicitado, req.params.id contiene el id, el findIndex devuelve el numero de posicion si fue exitoso, o -1 si no lo encuentra
-    const index = data.findIndex(r =>  r.id == req.params.id);
-    //si no lo encuentra devuelve el mensaje de error 404 y corta la ejecucuion con return
-    if (index === -1) return res.status(404).send('No Encontrada');
-    data[index] = {...data[index], ...req.body };
-    //sobreescribo el archivo:
-    fs.write.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    res.json(data[index]);
+   const id = req.params.id;
+   const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado } = req.body;
+
+   const query = `
+    UPDATE reservas
+    SET nombre_cliente = ?, fecha_reserva = ?, hora = ?, cantidad_personas = ?, estado = ?
+    WHERE id = ?
+    `;
+
+    db.query(
+        query,
+        [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, id],
+        (err, result) => {
+            if (err) {
+                console.error('Error al actualizar la reserva:', err);
+                res.status(500).send('Error al actualizar');
+            } 
+            else if (result.affectedRows === 0) {
+                res.status(404).send('Reserva no encontrada');
+            }
+            else {
+                res.send('Reserva actualizada correctamente');
+            }
+        }    
+    );
 })
 
 //eliminar reserva
 app.delete('/reservas/:id', (req, res) => {
-    let data = JSON.parse(fs.readFileSync(filePath));
-    //con data.filter creo un nuevo array pero sin el id al que se quiere eliminar, por eso uso !=, excluye esa reserva
-    data = data.filter(r => r.id != req.params.id);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    res.send('Reserva Eliminada');
+  const id = req.params.id;
+  const query = 'DELETE FROM reservas WHERE id =?';
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+        console.error('Erorr al eliminar la reserva', err);
+        res.status(500).send('Error al eliminar');
+    }
+    else if (results.affectedRows === 0) {
+        res.status(404).send('Reserva no encontrada');
+    }
+    else{
+        res.send('Reserva eliminada correctamente');
+    }
+  })
 })
 
-//inicio el servidor para que lea lineas http en el puerto pedido
 app.listen(PORT, () => {
-    console.log('Backend corriendo en http://localhost:${PORT}');
-})
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+}); 
