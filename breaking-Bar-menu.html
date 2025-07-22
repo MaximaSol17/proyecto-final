@@ -37,68 +37,154 @@
             </nav>
         </header>
         <section class="hero">
-            <div class="menu-superpuesto">
-                <h2>
-                    Bar & Cócteles
-                </h2>
-                <div class="productos-grid">
-                    <div class="producto">
-                        <br></br>
-                        <img src="img/Daiquiri.jpg" alt="Daiquiri" class="productos-img" width="200" height="133" >
-                        <br></br>
-                        <h3>
-                            Daiquiri 
-                        </h3>
-                        <p class="precio">
-                            $1500
-                        </p>
+            <section class="fondo-menu-deslizante">
+                <button class="flechita left" onclick="cambiarMenu(-1)">
+                    &#8592;
+                </button>
+
+                <div class="contenedor-menu-deslizante">
+                    <div class="menu-deslizante">
+                        <h2>
+                            Bar & Cócteles
+                        </h2>
+                        <br>
+                        <div class="productos-grid">
+                            <div class="producto">
+                                <br>
+                                <img src="img/Daiquiri.jpg" alt="Daiquiri" class="productos-img">
+                                <br>
+                                <h3>
+                                    Daiquiri
+                                </h3>
+                                <p class="precio">
+                                    $6.100
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/TequilaSunshine.jpg" alt="Tequila Sunshine" class="productos-img">
+                                <br>
+                                <h3>
+                                    Tequila Sunshine
+                                </h3>
+                                <p class="precio">
+                                    $6.500
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/Margarita.jpg" alt="Margarita" class="productos-img">
+                                <br>
+                                <h3>
+                                    Margarita
+                                </h3>
+                                <p class="precio">
+                                    $6.500
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/PinaColada.jpg" alt="Piña Colada" class="productos-img">
+                                <br>
+                                <h3>
+                                    Piña Colada
+                                </h3>
+                                <p class="precio">
+                                    $5.500
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/Manhattan.jpg" alt="Manhattan" class="productos-img">
+                                <br>
+                                <h3>
+                                    Manhattan
+                                </h3>
+                                <p class="precio">
+                                    $7.000
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="producto">
-                        <br></br>
-                        <img src="img/TequilaSunshine.jpg" alt="Tequila Sunshine" class="productos-img" width="200" height="133">
-                        <br></br>
-                        <h3>
-                            Tequila Sunshine
-                        </h3>
-                        <p class="precio">
-                            $1500
-                        </p>
-                    </div>
-                    <div class="producto">
-                        <br></br>
-                        <img src="img/Margarita.jpg" alt="Margarita" class="productos-img" width="200" height="133">
-                        <br></br>
-                        <h3>
-                            Margarita
-                        </h3>
-                        <p class="precio">
-                            $1500
-                        </p>
-                    </div>
-                    <div class="producto">
-                        <br></br>
-                        <img src="img/PinaColada.jpg" alt="Piña Colada" class="productos-img" width="200" height="133">
-                        <br></br>
-                        <h3>
-                            Piña Colada
-                        </h3>
-                        <p class="precio">
-                            $1500
-                        </p>
-                    </div>
-                    <div class="producto">
-                        <br></br>
-                        <img src="img/Manhattan.jpg" alt="Manhattan" class="productos-img" width="200" height="133">
-                        <br></br>
-                        <h3>
-                            Manhattan
-                        </h3>
-                        <p class="precio">
-                            $1500
-                        </p>
+
+                    <div class="menu-deslizante">
+                        <h2>
+                            Vinos
+                        </h2>
+                        <br>
+                        <div class="productos-grid">
+                            <div class="producto">
+                                <br>
+                                <img src="img/VinoRojo.jpg" alt="Daiquiri" class="productos-img">
+                                <br>
+                                <h3>
+                                    Vino Rojo
+                                </h3>
+                                <p class="precio">
+                                    $7.000
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/VinoRosado.jpg" alt="Tequila Sunshine" class="productos-img">
+                                <br>
+                                <h3>
+                                    Vino Rosado
+                                </h3>
+                                <p class="precio">
+                                    $8.000
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/VinoBlanco.jpg" alt="Margarita" class="productos-img">
+                                <br>
+                                <h3>
+                                    Vino Blanco
+                                </h3>
+                                <p class="precio">
+                                    $6.600
+                                </p>
+                            </div>
+                            <div class="producto">
+                                <br>
+                                <img src="img/Merlot.jpg" alt="Piña Colada" class="productos-img">
+                                <br>
+                                <h3>
+                                    Merlot
+                                </h3>
+                                <p class="precio">
+                                    $10.500
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <button class="flechita right" onclick="cambiarMenu(1)">
+                    &#8594;
+                </button>
+            </section>
         </section>
+        <script>
+            let indiceMenu = 0;
+            const slider = document.querySelector(".contenedor-menu-deslizante");
+            const totalSlides = document.querySelectorAll(".menu-deslizante").length;
+
+            function cambiarMenu(direccion)
+            {
+                indiceMenu += direccion;
+                if (indiceMenu < 0)
+                {
+                    indiceMenu = totalSlides - 1;
+                }
+                if (indiceMenu >= totalSlides)
+                {
+                    indiceMenu = 0;
+                }
+
+                slider.style.transform = `translateX(-${indiceMenu * 100}%)`;
+            }
+        </script>
     </body>
 </html>
