@@ -1,0 +1,19 @@
+{
+  "name": "breaking-bar",
+  "version": "1.0.0",
+  "description": "backend de proyecto final Breakin bar",
+  "main": "src/api.js",
+  "scripts": {
+    "dev": "nodemon src/api.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaximaSol17/proyecto-final.git"
+  },
+  "author": "404 not found",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaximaSol17/proyecto-final/issues"
+  },
+  "homepage": "https://github.com/MaximaSol17/proyecto-final#readme"
+}
