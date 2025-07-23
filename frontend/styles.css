@@ -1,0 +1,63 @@
+body {
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(73, 207, 140);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    margin: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color:white;
+    font-style:normal;
+    text-align: center;
+}
+
+.clientes-section {
+    background-color: rgba(221, 215, 213, 0.1);
+    padding: 2em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 100%;
+    padding: 0.5%;
+    border-radius: 5px;
+    
+}
+
+button {
+    width: 100%;
+    padding: 0.7em;
+    background-color: rgb(236, 229, 229);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(87, 76, 76);
+}
+
+p {
+    text-align: center;
+    margin-top: 1em;
+
+}
+
+a {
+    color: rgb(87, 76, 76);
+}
+
+
+
+

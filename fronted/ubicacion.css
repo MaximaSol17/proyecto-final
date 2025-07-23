@@ -1,0 +1,38 @@
+body {
+    /*APlico el mismo diseño que los otros template */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(73, 207, 140);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    font-family: normal;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+
+}
+
+h1 {
+    
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 2rem;
+    padding: 0.5rem;
+    border: 2px solid white;
+    border-radius: 8px;
+
+
+}
+
+.mapa {
+    max-width: 80%;
+    height: auto;
+    border-radius: 12px;
+
+}

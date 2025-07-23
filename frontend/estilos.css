@@ -1,0 +1,87 @@
+body {
+    background-color: rgb(86, 190, 159);
+    color: white;
+    margin: 0;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+.navbar {
+    background-color: black;
+    padding: 5px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo h1 {
+    color: rgb(80, 175, 143);
+    font-size: 36px;
+    font-family: 'Merriweather', serif;
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+/*lo siguiente, (hover) lo hago para que cuando pase el mouse por encima salga un cudradito en cada template  */
+nav a:hover {
+    border-color: white;
+    background-color: #222;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-top: 10px
+}
+
+/*todo lo relacionado con la imagen*/
+.hero {
+    background-image: url('https://tn.com.ar/resizer/v6LuPh5YVyeGT-Dq-7xCY_xPnJg=/767x0/smart/filters:format(webp)/cloudfront-us-east-1.images.arcpublishing.com/artear/JVDSCF7HO5EPZNAZHKS2MX4IJ4.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+/*agrando la letra de bienvenidos */
+.hero h2 {
+    font-size: 40px;
+    margin: 0;
+    font-family: 'Libertinus Mono', monospace;
+    color: #fff;                    
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6); 
+    letter-spacing: 2px;            
+    text-transform: uppercase;
+}
+
+.hero p {
+    font-size: 30px;
+    margin-top: 10px;
+    font-family:  'Libertinus Mono', monospace;
+
+}
+
+.logo-img {
+    height: 150px;
+}
