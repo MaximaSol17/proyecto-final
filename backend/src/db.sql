@@ -1,8 +1,8 @@
 Create table reservas (
     id serial primary key,
     cliente_id int REFERENCES clientes (id),
-    fecha_reserva varchar(100) not null,
-    hora varchar(100) not null,
+    fecha_reserva date not null,
+    hora time not null,
     cantidad_personas int not null,
     estado varchar(100) not null
 );
@@ -24,7 +24,13 @@ Create table menu (
     precio int not null,
     tipo varchar(100) not null,
     disponible bool not null, 
-    pedidos int REFERENCES reservas (id)
+    pedidos int
+);
+
+create table pedidos (
+    id serial primary key,
+    reserva_id int REFERENCES reservas (id),
+    producto_id int REFERENCES menu (id)
 );
 
 insert into clientes (nombre, apellido, email, edad, telefono, contraseña) values 
@@ -32,9 +38,16 @@ insert into clientes (nombre, apellido, email, edad, telefono, contraseña) valu
 ('Matias', 'Cerviño', 'matiascer@gmail.com', 23, 1156789008, 'holasoyyo');
 
 insert into reservas (cliente_id, fecha_reserva, hora, cantidad_personas, estado) values 
-(2, '12-08-2025', '20:30', 4, 'confirmado'), 
-(3, '25-07-2025', '21:00', 2, 'pendiente');
+(1, '2025-08-20', '20:30', 4, 'confirmado'), 
+(2, '2025-07-25', '21:00', 2, 'pendiente');
 
 insert into menu (nombre, descripcion, precio, tipo, disponible, pedidos) values 
-('Fernet', 'bebida alcohólica elaborada con 70% coca-cola y 30% fernet', 5000, 'bebida alcohólica', 'si', 1);
-/*NO LO AGREGUÉ*/
+('Daikiri', 'elaborado con ron blanco, jugo de lima y azucar', 6100, 'coctel', true, 1),
+('Tequila Sunshine', 'elaborado con tequila, creme de cassis, jugo de lima y agua con gas', 6500, 'coctel', true, 1),
+('Margarita', 'eladorado con tequila, triple seco y jugo de limon', 6500, 'coctel', true, 1),
+('Piña colada', 'elaborado piña, crema de coco y ron', 5500, 'coctel', true, 1),
+('Manhattan', 'elaborado con whiskey y vermut rojo', 7000, 'coctel', true, 1),
+('Vino rojo', 'elaborado con uvas tintas', 7000, 'Vino', true, 1),
+('Vino rosado', 'elaborado con uvas rosadas', 8000, 'vino', true, 1),
+('Vino blanco', 'elaborado con blancas florales y frutales', 6600, 'vino', true, 1),
+('Merlot', 'elaborado con uva merlot originaria de Francia', 10500, 'vino', true, 1);
