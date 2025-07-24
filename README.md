@@ -58,7 +58,7 @@ Este ultimo comando levantará tanto la base de datos, como el backend y el fron
 ## ✍️ Integrantes
 Sofía Aylen Lopez 112613 \
 Máxima de Crescenzo 114024 \
-Julian 
+Julian Baxendale 113804
 
 
 

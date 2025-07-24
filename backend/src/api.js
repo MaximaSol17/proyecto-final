@@ -154,7 +154,6 @@ app.delete('/clientes/:id', (req,res) => {
 
 
 //sigue template Reservas
-
 //para que lea la lista completa de reservas//
 app.get('/reservas', (req, res) => {
     db.query('SELECT * FROM reservas', (err, results) => {
@@ -253,7 +252,141 @@ app.delete('/reservas/:id', (req, res) => {
 
 
 //sigue template Menu
+// Obtener todos los productos del menú
+app.get('/menu', async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM menu ORDER BY id');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 
+});
+
+// Obtener producto por ID
+app.get('/menu/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await db.query('SELECT * FROM menu WHERE id = $1', [id]);
+        if (result.rows.length === 0) {
+            res.status(404).json({ error: 'Producto no encontrado' });
+        } else {
+            res.json(result.rows[0]);
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Crear un producto (solo admin)
+app.post('/menu', async (req, res) => {
+    const { nombre, descripcion, precio, tipo, disponible } = req.body;
+    try {
+        const result = await db.query(
+            `INSERT INTO menu (nombre, descripcion, precio, tipo, disponible)
+             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+            [nombre, descripcion, precio, tipo, disponible]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Actualizar producto (solo admin)
+app.put('/menu/:id', async (req, res) => {
+    const id = req.params.id;
+    const { nombre, descripcion, precio, tipo, disponible } = req.body;
+    try {
+        const result = await db.query(
+            `UPDATE menu
+             SET nombre = $1, descripcion = $2, precio = $3, tipo = $4, disponible = $5
+             WHERE id = $6 RETURNING *`,
+            [nombre, descripcion, precio, tipo, disponible, id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Eliminar producto (solo admin)
+app.delete('/menu/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await db.query('DELETE FROM menu WHERE id = $1', [id]);
+        res.json({ message: 'Producto eliminado' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Ver pedidos de un cliente (con info del menú)
+app.get('/pedidos/cliente/:cliente_id', async (req, res) => {
+    const { cliente_id } = req.params;
+    try {
+        const result = await db.query(`
+            SELECT pedidos.id AS pedido_id, menu.*
+            FROM pedidos
+            JOIN reservas ON pedidos.reserva_id = reservas.id
+            JOIN menu ON pedidos.producto_id = menu.id
+            WHERE reservas.cliente_id = $1
+        `, [cliente_id]);
+
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Editar pedido
+app.put('/pedidos/:id', async (req, res) => {
+    const pedido_id = req.params.id;
+    const { producto_id, cliente_id } = req.body;
+
+    try {
+        const pedido = await db.query(`
+            SELECT * FROM pedidos p
+            JOIN reservas r ON p.reserva_id = r.id
+            WHERE p.id = $1 AND r.cliente_id = $2
+        `, [pedido_id, cliente_id]);
+
+        if (pedido.rows.length === 0) {
+            return res.status(403).json({ error: "No puedes editar este pedido" });
+        }
+
+        const result = await db.query(`
+            UPDATE pedidos SET producto_id = $1 WHERE id = $2 RETURNING *
+        `, [producto_id, pedido_id]);
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Eliminar pedido
+app.delete('/pedidos/:id', async (req, res) => {
+    const pedido_id = req.params.id;
+    const { cliente_id } = req.body;
+
+    try {
+        const pedido = await db.query(`
+            SELECT * FROM pedidos p
+            JOIN reservas r ON p.reserva_id = r.id
+            WHERE p.id = $1 AND r.cliente_id = $2
+        `, [pedido_id, cliente_id]);
+
+        if (pedido.rows.length === 0) {
+            return res.status(403).json({ error: "No puedes eliminar este pedido" });
+        }
+
+        await db.query('DELETE FROM pedidos WHERE id = $1', [pedido_id]);
+        res.json({ message: 'Pedido eliminado' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
