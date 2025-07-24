@@ -1,14 +1,15 @@
-const form = document.getELementByid('form-clientes');
+const form = document.getElementByid('form-clientes');
 
 
-//obtengo los mail y contraseñas
-const email = document.getElementById('email').value;
-const contraseña = document.getElementById('Contrasenia').value;
 
 
 
 form.addEventListener('submit',async(e) => {
     e.preventDefault(); //para que recargue 
+    //obtengo los mail y contraseñas
+
+    const email = document.getElementById('email').value;
+    const contraseña = document.getElementById('Contrasenia').value;
 
     const res = await fetch('http://localhost:3000/clientes/login', {
         method :'POST',

@@ -12,7 +12,7 @@ form.addEventListener('submit',async(e) => {
 
     const newcliente = { nombre, apellido, email, edad, contraseña};
 
-    const res = await fetch('http://localhost:3000/clientes/login', {
+    const res = await fetch('http://localhost:3000/clientes/registro', {
         method :'POST',
         headers : {
             'Content-type' : 'application/json' 
