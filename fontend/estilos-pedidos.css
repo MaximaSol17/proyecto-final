@@ -1,0 +1,63 @@
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #f4f4f4;
+  margin: 20px;
+  padding: 0;
+  color: #333;
+}
+
+/* Título principal */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Contenedor de pedidos */
+#lista-pedidos {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Tarjeta de cada pedido */
+.pedido {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pedido h3 {
+  margin-top: 0;
+}
+
+.pedido p {
+  margin: 4px 0;
+}
+
+/* Botones */
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:nth-child(1) {
+  background-color: #007bff;
+  color: white;
+}
+
+button:nth-child(2) {
+  background-color: #dc3545;
+  color: white;
+}
+

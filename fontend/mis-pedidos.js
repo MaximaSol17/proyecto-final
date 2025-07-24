@@ -1,64 +1,53 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const cliente_id = localStorage.getItem("cliente_id");
-    if (!cliente_id) {
-        document.getElementById("lista-pedidos").innerHTML = "<p>Inicia sesion para ver tus pedidos >/p>";
-        return;
-    }
+    const contenedor = document.getElementById("lista-pedidos");
 
-    const reserva_id = await obtenerReservaDelCliente(cliente_id);
-    if (!reserva_id) {
-        document.getElementById("lista-pedidos"). innerHTML = "<p> No hay reservas.</p>";
+    if (!cliente_id) {
+        contenedor.innerHTML = "<p>Inicia sesión para ver tus pedidos.</p>";
         return;
     }
 
     try {
-        const res = await fetch("http://localhost:3000/menu");
+        const res = await fetch(`http://localhost:3000/pedidos/cliente/${cliente_id}`);
         const data = await res.json();
-        const pedidosCliente = data.filter(item => item.reserva_id === reserva_id);
 
-        const contenedor = document.getElementById("lista-pedidos");
-        pedidosCliente.forEach(p => {
+        if (data.length === 0) {
+            contenedor.innerHTML = "<p>No hay pedidos registrados.</p>";
+            return;
+        }
+
+        data.forEach(p => {
             const div = document.createElement("div");
             div.innerHTML = `
-            <h3>${p.nombre}</h3>
-            <p>Precio: ${p.precio}</p>
-            <p>Tipo: ${p.tipo}</p>
-            <p>Disponible: ${p.disponible ? "Si" : "No"}</p>
-            <button onclick="eliminarPedido(${p.id})">Eliminar</button>
-            <hr>
+                <h3>${p.nombre}</h3>
+                <p>Precio: $${p.precio}</p>
+                <p>Tipo: ${p.tipo}</p>
+                <p>Disponible: ${p.disponible ? "Sí" : "No"}</p>
+                <button onclick="editarPedido(${p.pedido_id})">Editar</button>
+                <button onclick="eliminarPedido(${p.pedido_id})">Eliminar</button>
+                <hr>
             `;
             contenedor.appendChild(div);
         });
-    } catch (error) {
-        console.error("Error al obtener pedido:", error);
+    } catch (err) {
+        contenedor.innerHTML = "<p>Error al cargar los pedidos.</p>";
+        console.error(err);
     }
 });
-
-async function obtenerReservaDelCliente(cliente_id) {
-    try {
-        const  res = await fetch(`http://localhost:3000/reservas/cliente/${cliente_id}`);
-        const data = await res.json();
-        if (data.length === 0) return null;
-        //para que me devuelva la ultima reserva
-        return data[data.length - 1].id;
-    } catch (err) {
-        console.error("Error al obtener la reserva:", err);
-        return null;
-    }
-}
 
 async function eliminarPedido(id) {
     const cliente_id = localStorage.getItem("cliente_id");
 
-    const rest = await fetch(`http://localhost:3000/menu/${id}`, {
+    const res = await fetch(`http://localhost:3000/pedidos/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ cliente_id }),
     });
+
     if (res.ok) {
-        alert("El pedido ha sido eliminado");
+        alert("Pedido eliminado");
         location.reload();
     } else {
         const error = await res.json();
@@ -67,34 +56,34 @@ async function eliminarPedido(id) {
 }
 
 async function editarPedido(id) {
-    //Obtengo todos los productos disponibles
     const productosRes = await fetch("http://localhost:3000/menu");
     const productos = await productosRes.json();
 
-    //creo una lista
-    const opciones = productos.map(p => `${p.id}: ${p.nombre} - ${p.precio}`).join("\n");
-    const seleccion = prompt("Seleccioná el nuevo producto (por ID):n" + opciones);
+    const opciones = productos.map(p => `${p.id}: ${p.nombre} - $${p.precio}`).join("\n");
+    const seleccion = prompt("Seleccioná el nuevo producto (por ID):\n" + opciones);
 
     const productoSeleccionado = productos.find(p => p.id === parseInt(seleccion));
-
     if (!productoSeleccionado) {
-        alert("Ese producto no es valido");
+        alert("Producto inválido");
         return;
     }
 
-    //Actualizo su pedido
+    const cliente_id = localStorage.getItem("cliente_id");
+
     const res = await fetch(`http://localhost:3000/pedidos/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            producto_id: productoSeleccionado.id
-        })
+            producto_id: productoSeleccionado.id,
+            cliente_id,
+        }),
     });
 
     if (res.ok) {
         alert("Pedido actualizado");
+        location.reload();
     } else {
-        alert("No se pudo actualizar");
+        const error = await res.json();
+        alert("Error: " + error.error);
     }
 }
-
