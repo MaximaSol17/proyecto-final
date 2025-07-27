@@ -1,14 +1,16 @@
 const express = require('express');
+const cors = require('cors');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const { Client } = require('pg');
 
 const db = new Client({
-    host: 'localhost',
+    host: 'postgres',
     user: 'postgres',
-    password: 'breakingbar',
-    database: 'reservas',
+    password: 'postgres',
+    database: 'proyecto_bar',
     port: 5432, 
 });
 
