@@ -57,7 +57,7 @@ cd proyecto-final
 
 **Luego ejecutar:** 
 ```
-docker -compose up --build -d 
+docker compose up --build  
 ```
 Este ultimo comando levantará tanto la base de datos, como el backend y el frontend
 
