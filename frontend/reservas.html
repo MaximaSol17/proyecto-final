@@ -3,9 +3,24 @@
     <head>
         <meta charset="UTF-8" /> 
         <title>Reservas</title>
-        <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="estilos-reservas.css">
     </head>
     <body>
+
+        <header class="navbar">
+            <div class="logo">
+                <img src="nuevo-logo.png" alt="Breaking Bar logo" class="logo-img">
+            </div>
+            <nav class="menu">
+                <a href="clientes.html">Clientes</a>
+                <a href="reservas.html">reservas</a>
+                <a href="menu.html">Menu</a>
+                <a href="donde-estamos.html">Dónde estamos</a>
+                <a href="https://www.instagram.com/ingenieriauba?igsh=MWxwaHMxY3lqcTJoMw==" target="_blank">Instagram</a>
+        <!--el target _blanck lo uso para que se abra una nueva pestaña sin que el usuario salga del sitio web-->
+            </nav>
+        </header>
+
         <section id="reservas" class="reservas-section">
             <h2>Reservas</h2>
             <form id="form-reserva">
@@ -27,6 +42,7 @@
             </form>
             </table>
             <div id="lista-reservas"></div>
+            <a href="clientes-admin.html" id="admin-link" style="display: none">Panel de administracion </a>
         </section>
         <script src="reservas.js"></script>
     </body>
