@@ -40,6 +40,13 @@ insert into clientes (nombre, apellido, email, edad, telefono, contraseña) valu
 insert into reservas (cliente_id, fecha_reserva, hora, cantidad_personas, estado) values 
 (1, '2025-08-20', '20:30', 4, 'confirmado'), 
 (2, '2025-07-25', '21:00', 2, 'pendiente'),
+(3, '2025-07-26', '20:30', 2, 'confirmada'),
+(4, '2025-07-27', '21:00', 4, 'pendiente'),
+(5, '2025-07-28', '19:45', 3, 'confirmada'),
+(6, '2025-07-29', '22:00', 2, 'cancelada'),
+(7, '2025-07-30', '20:00', 5, 'confirmada'),
+(8, '2025-07-31', '21:15', 2, 'pendiente'),
+(9, '2025-08-01', '19:30', 1, 'confirmada');
 
 insert into pedidos (reserva_id, nombre_producto, descripcion, precio, cantidad) values 
 (1, 'Daikiri', 'elaborado con ron blanco, jugo de lima y azucar', 6100, 1),

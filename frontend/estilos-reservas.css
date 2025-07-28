@@ -8,6 +8,50 @@ body {
     margin: 40px;
 }
 
+/*encabezado*/
+.navbar {
+    background-color: rgb(32, 63, 50); 
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 100px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    border-color: white;
+    background-color: #222;
+}
+/*termino encabezado*/
+
 h2 {
     font-size: 40px;
     margin-bottom: 20px;
