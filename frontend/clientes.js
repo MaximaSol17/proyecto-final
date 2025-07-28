@@ -1,8 +1,4 @@
-const form = document.getElementByid('form-clientes');
-
-
-
-
+const form = document.getElementById('form-clientes');
 
 form.addEventListener('submit',async(e) => {
     e.preventDefault(); //para que recargue 
@@ -24,6 +20,8 @@ form.addEventListener('submit',async(e) => {
 
     if(res.ok) {
         const person = await res.json();
+        //va
+        localStorage.setItem('email', cliente.email);
         alert('Login exitoso. Bienvenido' + person.nombre );
         // Lo mando a reservas
         window.location.href = 'reservas.html';

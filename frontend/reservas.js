@@ -93,3 +93,10 @@ async function editarReserva(id) {
     //guardo el id de la reserva que estoy editando
     form.dataset.editando = id;
 }
+
+const email = localStorage.getItem('email');
+//se es el admin muestro el link al panel de administracion.
+if(email === 'admin@bar.com') {
+    const adminLink = document.getElementById('admin-link');
+    if (adminLink) adminLink.style.display = 'inline-block';
+}
