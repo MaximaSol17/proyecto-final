@@ -1,0 +1,49 @@
+body {
+    /*APlico el mismo diseño que los otros template */
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(50, 102, 76);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: rgb(255, 253, 253);
+    margin: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: rgba(37, 32, 32, 0.75);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+     
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #837777;
+    color: white;
+    border:none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #331c1c;
+    opacity: 0.9;
+}
