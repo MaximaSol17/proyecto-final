@@ -5,7 +5,7 @@ form.addEventListener('submit',async(e) => {
     //obtengo los mail y contraseñas
 
     const email = document.getElementById('email').value;
-    const contraseña = document.getElementById('Contraseña').value;
+    const contraseña = document.getElementById('contraseña').value;
 
     const res = await fetch('http://localhost:3000/clientes/login', {
         method :'POST',
