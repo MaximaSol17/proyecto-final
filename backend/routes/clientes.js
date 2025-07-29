@@ -1,35 +1,12 @@
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const app = express();
-const PORT = process.env.PORT || 3000;
+const router = express.Router();
+const db = require('../db');
 
-const { Client } = require('pg');
-
-const db = new Client({
-    host: 'postgres',
-    user: 'postgres',
-    password: 'postgres',
-    database: 'proyecto_bar',
-    port: 5432, 
-});
-
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')))
-
-db.connect((err) => {
-    if (err) {
-        console.error('Error al conectar a PostgreSQL:', err.message);
-        return;
-    }
-    console.log('Conectado a la base de datos PostgreSQL');
-});
 
 
 //Comenzamos con template Clientes
 //Empiezo con el ENDOPINT REGISTRO
-app.post('/clientes/registro', async (req,res) => {
+router.post('/registro', async (req,res) => {
     const {nombre, apellido, email, edad, telefono, contraseña } = req.body;
     const sql = 
      `INSERT INTO clientes (nombre, apellido, email, edad, telefono, contraseña)
@@ -53,7 +30,7 @@ app.post('/clientes/registro', async (req,res) => {
 
 //ENDPOINT LOGIN
 
-app.post('/clientes/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     const {email, contraseña } = req.body;
     const sql =  `
     SELECT * FROM clientes 
@@ -79,7 +56,7 @@ app.post('/clientes/login', async (req, res) => {
 
 //metodo get
 
-app.get('/clientes', (req, res) => {
+router.get('/', (req, res) => {
     const sql = 'SELECT * FROM clientes';
 
     db.query(sql, (err,result) => {
@@ -94,7 +71,7 @@ app.get('/clientes', (req, res) => {
 
 //para obtener un cliente por id
 
-app.get('/clientes/:id',(req,res) => {
+router.get('/:id',(req,res) => {
     const { id } = req.params;
     const sql = 'SELECT * FROM clientes WHERE id = $1';
 
@@ -113,7 +90,7 @@ app.get('/clientes/:id',(req,res) => {
 
 //Para editar un cliente existente
 
-app.put('/clientes/:id', (req,res) => {
+router.put('/:id', (req,res) => {
     const { id } = req.params;
     const {nombre, apellido, email, edad, telefono, contraseña} = req.body;
     const sql = `
@@ -138,7 +115,7 @@ app.put('/clientes/:id', (req,res) => {
 
 //Para eliminat clientes
 
-app.delete('/clientes/:id', (req,res) => {
+router.delete('/:id', (req,res) => {
     const { id } = req.params;
     const sql = 'DELETE  FROM clientes WHERE id = $1 RETURNING * ';
     db.query(sql, [id], (err,result) => {
@@ -154,3 +131,4 @@ app.delete('/clientes/:id', (req,res) => {
     
 });
 
+module.exports = router;

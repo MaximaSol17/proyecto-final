@@ -1,46 +1,23 @@
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const app = express();
-const PORT = process.env.PORT || 3000;
 
-const { Client } = require('pg');
+const router = express.Router();
 
-const db = new Client({
-    host: 'postgres',
-    user: 'postgres',
-    password: 'postgres',
-    database: 'proyecto_bar',
-    port: 5432, 
-});
-
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')))
-
-db.connect((err) => {
-    if (err) {
-        console.error('Error al conectar a PostgreSQL:', err.message);
-        return;
-    }
-    console.log('Conectado a la base de datos PostgreSQL');
-});
-
+const db = require('../db');
 
 
 
 
 //sigue template Reservas
 //para que lea la lista completa de reservas//
-app.get('/reservas', (req, res) => {
+router.get('/', (req, res) => {
     db.query('SELECT * FROM reservas', (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
+        res.json(results.rows);
     });
 });
 
 //para pedir una reserva por su id//
-app.get('/reservas/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const id = req.params.id;
     const sql = 'SELECT * FROM reservas WHERE id = $1';
     db.query(sql, [id], (err,results) => {
@@ -54,18 +31,18 @@ app.get('/reservas/:id', (req, res) => {
 });
 
 //obtiene solo las reservas del cliente que inicio sesion
-app.get('/reservas/cliente/:cliente_id', (req, res) => {
+router.get('/cliente/:cliente_id', (req, res) => {
     const cliente_id = req.params.cliente_id;
     const sql = 'SELECT * FROM reservas WHERE cliente_id = $1';
 
     db.query(sql, [cliente_id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.json(result.rows);
+        res.json(results.rows);
     });
 });
 
 //recibe y guarda una nueva reserva en reservas.json//
-app.post('/reservas', (req, res) => {
+router.post('/', (req, res) => {
     const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
     const sql = `
       INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id)
@@ -77,13 +54,13 @@ app.post('/reservas', (req, res) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {
-            res.status(201).json(result.rows[0]);
+            res.status(201).json(results.rows[0]);
         } 
     });
 });
 
 //editar una reserva existente
-app.put('/reservas/:id', (req, res) => {
+router.put('/:id', (req, res) => {
    const id = req.params.id;
    const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado } = req.body;
 
@@ -111,7 +88,7 @@ app.put('/reservas/:id', (req, res) => {
 });
 
 //eliminar reserva
-app.delete('/reservas/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const query = 'DELETE FROM reservas WHERE id = $1';
 
@@ -126,3 +103,5 @@ app.delete('/reservas/:id', (req, res) => {
     }
   });
 });
+
+module.exports = router;

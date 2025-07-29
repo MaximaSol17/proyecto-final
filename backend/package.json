@@ -6,13 +6,13 @@
 
   "description": "backend de proyecto final Breakin bar",
 
-  "main": "src/api.js",
+  "main": "app.js",
 
   "scripts": {
 
-    "dev": "nodemon src/api.js",
+    "dev": "nodemon app.js",
 
-    "start": "node src/api.js"
+    "start": "node app.js"
 
   },
 

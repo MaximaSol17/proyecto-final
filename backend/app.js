@@ -18,8 +18,15 @@ app.use('/clientes', clientesRoutes);
 app.use('/reservas', reservasRoutes);
 app.use('/pedidos', pedidosRoutes);
 
+
+
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
+
+app.get('/', (req, res) => {
+  res.send('API del proyecto Bar funcionando 🍻');
+});
 
