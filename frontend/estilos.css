@@ -88,6 +88,10 @@ nav a:hover
     font-size: 40px;
     margin: 0;
     font-family: 'Libertinus Mono', monospace;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(red, green, blue, alpha);
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .hero p
