@@ -1,4 +1,7 @@
 const form = document.getElementById('form-clientes');
+const nombre = localStorage.getItem('nombre') || 'Nombre';
+const apellido = localStorage.getItem('apellido') || 'Apellido';
+
 
 form.addEventListener('submit',async(e) => {
     e.preventDefault(); //para que recargue 

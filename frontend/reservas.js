@@ -1,3 +1,6 @@
+console.log("reservas.js cargado");
+console.log("cliente_id en localStorage:", localStorage.getItem("cliente_id"));
+
 const form = document.getElementById('form-reserva');
 
 if (!localStorage.getItem('cliente_id')) {
@@ -5,16 +8,29 @@ if (!localStorage.getItem('cliente_id')) {
     window.location.href = 'clientes.html';
 }
 
+// mostrar el nombre y apellido del cliente en el campo "nombre_cliente" (solo lectura)
+const nombre = localStorage.getItem('nombre');
+const apellido = localStorage.getItem('apellido');
+const inputNombre = document.getElementById('nombre_cliente');
+if (inputNombre) {
+    inputNombre.value = `${nombre} ${apellido}`;
+}
+
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();   //lo hago para evitar que la pagina se recargue al hacer submit
     const data = Object.fromEntries(new FormData(form));  //esto va a tener los valores del formulario
     data.cliente_id = localStorage.getItem('cliente_id');
 
+    data.cantidad_personas = parseInt(data.cantidad_personas);
+    data.cliente_id = parseInt(data.cliente_id);
+
     //agrego funcion por si el usuario deja campos en blanco
-    if (!data.nombre_cliente || !data.fecha_reserva || !data.hora || !data.cantidad_personas) {
-        alert("Por favor cpmpleta los campos obligatorios");
-        return;
+    if (!data.fecha_reserva || !data.hora || !data.cantidad_personas) {
+    alert("Por favor completá los campos obligatorios");
+    return;
     }
+
 
     const idEditando = form.dataset.editando;
 
@@ -55,11 +71,23 @@ async function cargarReservas() {
     reservas.forEach(r => {
         const item = document.createElement('div');
         item.classList.add('reserva-item');
+
+        const fecha = new Date(r.fecha_reserva).toLocaleDateString('es-AR');
+        const hora = r.hora.slice(0, 5); // solo HH:MM
+
+        const nombre = localStorage.getItem('nombre');
+        const apellido = localStorage.getItem('apellido');
+
+        let nombreCompleto = '';
+        if (nombre && apellido) {
+            nombreCompleto = `<strong>${nombre} ${apellido}</strong> - `;
+        }
+
         item.innerHTML = `
-           <p><strong>${r.nombre_cliente}</strong> - ${r.fecha_reserva} a las ${r.hora} (${r.estado})</p>
-           <button onclick="editarReserva(${r.id})">editar</button>
-           <button onclick="eliminarReserva(${r.id})">Eliminar</button>
-           <hr/>
+            <p>${nombreCompleto}${fecha} a las ${hora} (${r.estado})</p>
+            <button onclick="editarReserva(${r.id})">editar</button>
+            <button onclick="eliminarReserva(${r.id})">Eliminar</button>
+            <hr/>
         `;
         contenedor.appendChild(item);
     });

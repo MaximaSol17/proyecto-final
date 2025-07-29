@@ -35,7 +35,8 @@ insert into clientes (nombre, apellido, email, edad, telefono, contraseña) valu
 ('Nahuel', 'Gómez', 'nahuelgomez@gmail.com', 40, 1133445566, 'nahuel2023'),
 ('Valentina', 'Martínez', 'valen.martinez@gmail.com', 31, 1199887766, '123valen'),
 ('Bruno', 'Sánchez', 'brunosan@hotmail.com', 22, 1155997788, 'bruno_pw'),
-('Sofía', 'Álvarez', 'sofiaa@gmail.com', 36, 1177123445, 'sofiasegura');
+('Sofía', 'Álvarez', 'sofiaa@gmail.com', 36, 1177123445, 'sofiasegura'),
+('admin', 'admin', 'admin@bar.com', 99, 1122334455, 'admin');
 
 insert into reservas (cliente_id, fecha_reserva, hora, cantidad_personas, estado) values 
 (1, '2025-08-20', '20:30', 4, 'confirmado'), 

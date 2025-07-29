@@ -88,7 +88,7 @@ nav a:hover
     font-size: 40px;
     margin: 0;
     font-family: 'Libertinus Mono', monospace;
-    color: #fff;
+    color: white;
     text-shadow: 3px 3px 6px rgba(red, green, blue, alpha);
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -99,6 +99,10 @@ nav a:hover
     font-size: 30px;
     margin-top: 10px;
     font-family:  'Libertinus Mono', monospace;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(red, green, blue, alpha);
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .logo-img

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const person = await res.json();
             // Guardar el ID del cliente en localStorage
-            localStorage.setItem('cliente_id', person.id); 
+            localStorage.setItem('cliente_id', person.id); s
             alert('Registro exitoso. Bienvenido');
             // Lo mando a login
             window.location.href = 'clientes.html';

@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
         if (results.rows.length === 0) {
             res.status(404).send('Reserva no encontrada');
         } else {
-            res.json(results[0]);
+            res.json(results.rows[0]);
         }
     });
 });
@@ -41,17 +41,19 @@ router.get('/cliente/:cliente_id', (req, res) => {
     });
 });
 
-//recibe y guarda una nueva reserva en reservas.json//
+//recibe y guarda una nueva reserva en la base de datos//
 router.post('/', (req, res) => {
-    const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
+    const { fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
+
     const sql = `
-      INSERT INTO reservas (nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO reservas (fecha_reserva, hora, cantidad_personas, estado, cliente_id)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *
     `;
 
-    db.query(sql, [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, cliente_id], (err, results) => {
+    db.query(sql, [fecha_reserva, hora, cantidad_personas, estado, cliente_id], (err, results) => {
         if (err) {
+            console.error('Error al guardar reserva:', err);
             res.status(500).json({ error: err.message });
         } else {
             res.status(201).json(results.rows[0]);
@@ -62,18 +64,18 @@ router.post('/', (req, res) => {
 //editar una reserva existente
 router.put('/:id', (req, res) => {
    const id = req.params.id;
-   const { nombre_cliente, fecha_reserva, hora, cantidad_personas, estado } = req.body;
+   const { fecha_reserva, hora, cantidad_personas, estado } = req.body;
 
    const query = `
     UPDATE reservas
-    SET nombre_cliente = $1, fecha_reserva = $2, hora = $3, cantidad_personas = $4, estado = $5
-    WHERE id = $6
+    SET fecha_reserva = $1, hora = $2, cantidad_personas = $3, estado = $4
+    WHERE id = $5
     RETURNING *
     `;
 
     db.query(
         query,
-        [nombre_cliente, fecha_reserva, hora, cantidad_personas, estado, id],
+        [fecha_reserva, hora, cantidad_personas, estado, id],
         (err, result) => {
             if (err) {
                 console.error('Error al actualizar la reserva:', err);
@@ -94,7 +96,7 @@ router.delete('/:id', (req, res) => {
 
   db.query(query, [id], (err, results) => {
     if (err) {
-        console.error('Erorr al eliminar la reserva', err);
+        console.error('Error al eliminar la reserva', err);
         res.status(500).send('Error al eliminar');
     } else if (results.rowCount === 0) {
         res.status(404).send('Reserva no encontrada');
