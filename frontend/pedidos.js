@@ -5,9 +5,12 @@ if (!clienteId) {
   return;
 }
 
+let modoEdicion = false;
+let pedidoEditandoID= null;
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  const listaPedidos = document.getElementById('lista-pedidos');
+  const tbodyPedidos = document.getElementById('cuerpo-tabla-pedidos');
   const totalPedido = document.getElementById('total-pedido');
   const btnConfirmar = document.getElementById('confirmar-pedido');
   const btnCancelar = document.getElementById('cancelar-pedido');
@@ -18,6 +21,31 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = 'reservas.html';
     return;
   }
+  
+
+
+  async function cargarPedidoenFormulario(id) {
+    try{
+      const res = await fetch(`http://localhost:3000/pedidos/${id}`);
+      if(!res.ok) throw new Error ('NO se encontro el pedido');
+      const pedido = await res.json();
+
+      document.getElementById('reserva_id').value = pedido.reserva_id;
+      document.getElementById('nombre_producto').value = pedido.nombre_producto;
+      document.querySelector('[name="descripcion"]').value = pedido.descripcion || '';
+      document.getElementById('precio').value = pedido.precio;
+      document.getElementById('cantidad').value = pedido.cantidad;
+
+      modoEdicion =true;
+      pedidoEditandoID=id;
+      document.getElementById('titulo-formulario').textContent = 'Editar pedido';
+
+
+    } catch (error){
+      alert(error.message);
+
+    }
+  }
 
   // cargar los pedidos actuales del cliente
   async function cargarPedidos() {
@@ -26,108 +54,150 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
 
       const pedidosCliente = data.filter(p => p.reserva_id == reservaId);
-      listaPedidos.innerHTML = '';
+      tbodyPedidos.innerHTML = '';
       let total = 0;
 
       pedidosCliente.forEach(pedido => {
         total += parseFloat(pedido.precio) * pedido.cantidad;
 
-        const li = document.createElement('li');
+        const fila = document.createElement('tr');
 
         // parte visible del pedido
-        li.innerHTML = `
-          <strong>${pedido.nombre_producto}</strong> (${pedido.cantidad}) - $${pedido.precio}<br>
-          <em>${pedido.descripcion || ''}</em><br>
-          <button data-id="${pedido.id}" class="eliminar-btn">Eliminar</button>
+      
+        fila.innerHTML = `
+
+          <td>${pedido.id}</td>
+          <td>${pedido.reserva_id}</td>
+          <td>${pedido.nombre_producto}</td>
+          <td>${pedido.descripcion || ''}</td>
+          <td>${pedido.precio}</td>
+          <td>${pedido.cantidad}</td>
+          <td>$${(pedido.precio * pedido.cantidad).toFixed(2)}</td>
+          <td>
+            <button class="editar-btn" data-id="${pedido.id}">Editar</button>
+            <button class="eliminar-btn" data-id="${pedido.id}">Eliminar</button>
+          </td>
         `;
-
-        // input para modificar cantidad
-        const inputCantidad = document.createElement('input');
-        inputCantidad.type = 'number';
-        inputCantidad.value = pedido.cantidad;
-        inputCantidad.min = 1;
-        inputCantidad.classList.add('input-cantidad');
-
-        // boton para guardar edicion
-        const btnGuardar = document.createElement('button');
-        btnGuardar.textContent = 'Guardar';
-        btnGuardar.classList.add('guardar-btn');
-
-        btnGuardar.addEventListener('click', () => {
-          const nuevaCantidad = parseInt(inputCantidad.value);
-          if (nuevaCantidad > 0) {
-            editarPedido(pedido.id, { cantidad: nuevaCantidad });
-          } else {
-            alert('La cantidad debe ser mayor a 0');
-          }
-        });
-
-        // agrego campos de edicion al <li>
-        li.appendChild(document.createElement('br'));
-        li.appendChild(document.createTextNode('Modificar cantidad: '));
-        li.appendChild(inputCantidad);
-        li.appendChild(btnGuardar);
-
-        listaPedidos.appendChild(li);
+      
+        tbodyPedidos.appendChild(fila);
       });
-
       totalPedido.textContent = total.toFixed(2);
+
     } catch (err) {
       console.error('No se pudo cargar los pedidos:', err);
     }
   }
 
-  // editar un pedido
-  async function editarPedido(id, datosActualizados) {
-    const res = await fetch(`http://localhost:3000/pedidos/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(datosActualizados)
-    });
 
-    if (res.ok) {
-      alert('Pedido actualizado');
-      cargarPedidos();
-    } else {
-      alert('Error al actualizar el pedido');
-    }
-  }
 
-  // eliminar un pedido individual
-  listaPedidos.addEventListener('click', async (e) => {
-    if (e.target.classList.contains('eliminar-btn')) {
-      const id = e.target.dataset.id;
-      if (confirm('¿Estás seguro de eliminar este pedido?')) {
-        await fetch(`http://localhost:3000/pedidos/${id}`, {
+
+
+  tbodyPedidos.addEventListener('click', async(e) => {
+    const target = e.target;
+    if(target.classList.contains('editar-btn')) {
+      const id = target.dataset.id;
+      cargarPedidoenFormulario(id);
+    } else if (target.classList.contains('eliminar-btn')) {
+      const id =target.dataset.id;
+      if(confirm('¿Seguro que queres eliminar este pedido?')) {
+        const res= await fetch(`http://localhost:3000/pedidos/${id}`, {
           method: 'DELETE',
         });
+        if(res.ok) {
+          alert('pedido eliminado');
+          cargarPedidos();
+        } else {
+          alert('Error al eliminar un pedido');
+        }
+      }
+    }
+  });
+
+
+  btnConfirmar.addEventListener('click' ,() => {
+    alert('Tu pedido ha sido confirmado con exito!');
+  });
+
+
+  btnCancelar.addEventListener('click', async() => {
+    if(confirm('¿Estas seguro que quieres cancelar todos tus pedidos?')) {
+      try {
+        const res = await fetch('http://localhost:3000/pedidos');
+        const pedidos = await res.json();
+        const pedidosCliente = pedidos.filter(p => p.reserva_id == reservaId);
+        for(const pedido of pedidosCliente) {
+          await fetch(`http://localhost:3000/pedidos/${pedido.id}`, {
+            method: 'DELETE',
+          });
+        }
         cargarPedidos();
+      } catch (error) {
+        alert('Error al cancelar pedidos');
+        console.error(error);
       }
     }
+
   });
 
-  // mensaje de confirmar pedido
-  btnConfirmar.addEventListener('click', () => {
-    alert('¡Tu pedido ha sido confirmado con éxito!');
-  });
+  
 
-  // cancelar todos los pedidos del cliente
-  btnCancelar.addEventListener('click', async () => {
-    if (confirm('¿Estás seguro que quieres cancelar todos tus pedidos?')) {
-      const res = await fetch('http://localhost:3000/pedidos');
-      const pedidos = await res.json();
-      const pedidosCliente = pedidos.filter(p => p.reserva_id == reservaId);
 
-      for (const pedido of pedidosCliente) {
-        await fetch(`http://localhost:3000/pedidos/${pedido.id}`, {
-          method: 'DELETE',
-        });
+  document.getElementById('formpedido').addEventListener('submit' , async(e) => {
+    e.preventDefault();
+
+
+    const pedido = {
+      reserva_id: parseInt(reservaId),
+      nombre_producto: document.getElementById('nombre_producto').value,
+      descripcion: document.querySelector('[name = "descripcion"]').value,
+      precio: parseFloat(document.getElementById('precio').value),
+      cantidad: parseInt(document.getElementById('cantidad').value),
+    };
+
+    if(modoEdicion) {
+      //actualizo pedido
+      const res= await fetch(`http://localhost:3000/pedidos/${pedidoEditandoID}`, {
+        method: 'PUT',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(pedido),
+      });
+      if(res.ok) {
+        alert('Pedido actualizado correctamente');
+        //limpio la edicion y el formulario
+        modoEdicion=false;
+        pedidoEditandoID = null;
+        e.target.reset();
+        cargarPedidos();
+        document.getElementById('titulo-formulario').textContent = 'Agregar pedido';
+
+
+      } else {
+        alert('Error al actualizar el pedido');
       }
-      cargarPedidos();
-    }
-  });
+    } else {
+      //crear pedido
+      const res= await fetch('http://localhost:3000/pedidos', {
 
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(pedido), 
+
+      });
+
+      if(res.ok) {
+        alert('Pedido agregado correctamente');
+        cargarPedidos();
+        e.target.reset(); //limpio el formulario
+
+      } else {
+        alert('Error al ingresar el pedido');
+      }
+
+    }
+
+  
+  });
   cargarPedidos();
+
+
 });

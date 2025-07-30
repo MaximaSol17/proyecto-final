@@ -11,7 +11,7 @@ function obtenerMenu() {
       mostrarProductos(data);
     })
     .catch((error) => console.error("Error al obtener el menú:", error));
-};
+}
 
 function mostrarProductos(menuItems) {
   const contenedor = document.getElementById("productos-menu");
@@ -28,10 +28,11 @@ function mostrarProductos(menuItems) {
     `;
     contenedor.appendChild(div);
   });
-};
+}
 
-function AgregarAlPedido(nombre, precio) {
+async function AgregarAlPedido(nombre, precio) {
   const cliente = JSON.parse(localStorage.getItem("cliente"));
+  const reservaID= localStorage.getItem("reserva_id");
 
   // Redirecciona al formulario de clientes
   if (!cliente) {
@@ -39,26 +40,41 @@ function AgregarAlPedido(nombre, precio) {
     window.location.href = "clientes.html"; 
     return;
   }
+  
+  if (!reservaID) {
+    alert("Necesitas hacer una reserva primero.");
+    window.location.href = "reservas.html";
+    return;
+  }
+  const pedido = {
+    reserva_id: parseInt(reservaID),
+    nombre_producto: nombre,
+    descripcion: "",
+    precio: parseFloat(precio),
+    cantidad: 1,
 
-  pedidos.push({ nombre, precio });
-  alert(`${nombre} agregado al pedido`);
-  console.log(pedidos);
-};
+  };
 
-let indiceMenu = 0;
+  try {
+    const res = await fetch("http://localhost:3000/pedidos", {
+      method : 'POST',
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify(pedido),
+    });
+  
 
-function cambiarMenu(direccion) {
-  const contenedor = document.querySelector('.contenedor-menu-deslizante');
-  const menus = document.querySelectorAll('.menu-deslizante');
-
-  indiceMenu += direccion;
-
-  if (indiceMenu < 0) {
-    indiceMenu = menus.length - 1;
-  } else if (indiceMenu >= menus.length) {
-    indiceMenu = 0;
+    if( res.ok) {
+      alert(`${nombre} agregado al pedido correctamente`);
+    } else {
+      alert("Hubo un error al agregar el producto.");
+    }
+  } catch(err) {
+    console.error("Error al agregar el pedido:",err);
+    alert("no se pudo enviar el pedido al servidor");
   }
 
-  const desplazamiento = -indiceMenu * 100;
-  contenedor.style.transform = `translateX(${desplazamiento}%)`;
+
 };
+
