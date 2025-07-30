@@ -1,3 +1,11 @@
+const clienteId = localStorage.getItem('cliente_id');
+if (!clienteId) {
+  alert('Debes iniciar sesión primero.');
+  window.location.href = 'clientes.html';
+  return;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const listaPedidos = document.getElementById('lista-pedidos');
   const totalPedido = document.getElementById('total-pedido');
