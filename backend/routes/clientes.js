@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-
-
-//Comenzamos con template Clientes
 //Empiezo con el ENDOPINT REGISTRO
 router.post('/registro', async (req,res) => {
     const {nombre, apellido, email, edad, telefono, contraseña } = req.body;
@@ -48,7 +45,7 @@ router.post('/login', async (req, res) => {
 
     //si el login fue exitoso
     const cliente = result.rows[0];
-    res.status(200).json({mensaje: 'Login exitoso', cliente });
+    res.status(200).json(cliente);
 
   });
 

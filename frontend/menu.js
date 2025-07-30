@@ -11,7 +11,7 @@ function obtenerMenu() {
       mostrarProductos(data);
     })
     .catch((error) => console.error("Error al obtener el menú:", error));
-}
+};
 
 function mostrarProductos(menuItems) {
   const contenedor = document.getElementById("productos-menu");
@@ -28,7 +28,7 @@ function mostrarProductos(menuItems) {
     `;
     contenedor.appendChild(div);
   });
-}
+};
 
 function AgregarAlPedido(nombre, precio) {
   const cliente = JSON.parse(localStorage.getItem("cliente"));
@@ -43,5 +43,22 @@ function AgregarAlPedido(nombre, precio) {
   pedidos.push({ nombre, precio });
   alert(`${nombre} agregado al pedido`);
   console.log(pedidos);
-}
+};
 
+let indiceMenu = 0;
+
+function cambiarMenu(direccion) {
+  const contenedor = document.querySelector('.contenedor-menu-deslizante');
+  const menus = document.querySelectorAll('.menu-deslizante');
+
+  indiceMenu += direccion;
+
+  if (indiceMenu < 0) {
+    indiceMenu = menus.length - 1;
+  } else if (indiceMenu >= menus.length) {
+    indiceMenu = 0;
+  }
+
+  const desplazamiento = -indiceMenu * 100;
+  contenedor.style.transform = `translateX(${desplazamiento}%)`;
+};

@@ -10,7 +10,7 @@ body {
 
 /*encabezado*/
 .navbar {
-    background-color: rgb(32, 63, 50); 
+    background-color: rgb(238, 25, 25); 
     padding: 10px 50px;
     display: flex;
     justify-content: space-between;
@@ -71,7 +71,7 @@ form {
     margin-bottom: 20px;
     max-width: 400px;
     width: 100%;
-    box-shadow: 0 5px 10px red;
+    box-shadow: 0 5px 10px rgb(32, 63, 50);
     border-radius: 10px;
 }
 

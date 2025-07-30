@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const reservaId = localStorage.getItem('reserva_id');
   if (!reservaId) {
     alert('Debes tener una reserva para hacer pedidos.');
-    window.location.href = 'mis-reservas.html';
+    window.location.href = 'reservas.html';
     return;
   }
 

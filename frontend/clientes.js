@@ -24,12 +24,9 @@ form.addEventListener('submit',async(e) => {
     if(res.ok) {
         const person = await res.json();
         
-        localStorage.setItem('cliente_id', person.id);
-        localStorage.setItem('nombre', person.nombre);
-        localStorage.setItem('apellido', person.apellido);
-        localStorage.setItem('email', person.email);
+        localStorage.setItem('cliente', JSON.stringify(person));
 
-        alert('Login exitoso. Bienvenido' + person.nombre );
+        alert('Login exitoso. Bienvenido ' + person.nombre );
         // Lo mando a reservas
         window.location.href = 'reservas.html';
 

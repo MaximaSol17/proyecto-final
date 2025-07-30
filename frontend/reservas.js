@@ -1,10 +1,8 @@
 console.log("reservas.js cargado");
-console.log("cliente_id en localStorage:", localStorage.getItem("cliente_id"));
+const cliente_id = localStorage.getItem('cliente_id');
 
-const form = document.getElementById('form-reserva');
-
-if (!localStorage.getItem('cliente_id')) {
-    alert('Primero ingresa a Breaking BAR');
+if (!cliente_id) {
+    alert('Primero debes iniciar sesión.');
     window.location.href = 'clientes.html';
 }
 
@@ -16,42 +14,32 @@ if (inputNombre) {
     inputNombre.value = `${nombre} ${apellido}`;
 }
 
+const form = document.getElementById('form-reserva');
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();   //lo hago para evitar que la pagina se recargue al hacer submit
-    const data = Object.fromEntries(new FormData(form));  //esto va a tener los valores del formulario
-    data.cliente_id = localStorage.getItem('cliente_id');
+    e.preventDefault();
 
-    data.cantidad_personas = parseInt(data.cantidad_personas);
-    data.cliente_id = parseInt(data.cliente_id);
+    const formData = new FormData(form);
+    const reserva = {
+        cliente_id: localStorage.getItem('cliente_id'),
+        fecha_reserva: formData.get('fecha_reserva'),
+        hora: formData.get('hora'),
+        cantidad_personas: formData.get('cantidad_personas'),
+        estado: formData.get('estado')
+    };
 
-    //agrego funcion por si el usuario deja campos en blanco
-    if (!data.fecha_reserva || !data.hora || !data.cantidad_personas) {
-    alert("Por favor completá los campos obligatorios");
-    return;
-    }
+    const res = await fetch('http://localhost:3000/reservas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reserva)
+    });
 
-
-    const idEditando = form.dataset.editando;
-
-    const res = await fetch(
-        idEditando ? `http://localhost:3000/reservas/${idEditando}` : 'http://localhost:3000/reservas', 
-        {
-            method: idEditando ? 'PUT' : 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }
-    );
-
-    //por las dudas, verifico que se haya creado bien
     if (res.ok) {
-        alert(idEditando ? 'Reserva actualizada' : 'Reserva Creada');
+        alert('Reserva creada correctamente');
         form.reset();
-        delete form.dataset.editando;
-        location.reload();
-    }
-    else {
-        alert('Error al guardar');
+        cargarReservas(); // <-- esto actualiza la lista en pantalla
+    } else {
+        alert('Error al crear la reserva');
     }
 });
 
@@ -63,17 +51,13 @@ async function cargarReservas() {
     const contenedor = document.getElementById('lista-reservas') || document.getElementById('contenedor-reservas');
     contenedor.innerHTML = ''; //limpio antes de cargar nuevas reservas
 
-    if (reservas.length === 0) {
-    contenedor.innerHTML = "<p>No tenés reservas registradas.</p>";
-    return;
-    }
 
     reservas.forEach(r => {
         const item = document.createElement('div');
         item.classList.add('reserva-item');
 
         const fecha = new Date(r.fecha_reserva).toLocaleDateString('es-AR');
-        const hora = r.hora.slice(0, 5); // solo HH:MM
+        const hora = r.hora.slice(0, 5); 
 
         const nombre = localStorage.getItem('nombre');
         const apellido = localStorage.getItem('apellido');
