@@ -25,6 +25,8 @@ form.addEventListener('submit',async(e) => {
         const person = await res.json();
         
         localStorage.setItem('cliente', JSON.stringify(person));
+        localStorage.setItem('email', person.email);
+
 
         alert('Login exitoso. Bienvenido ' + person.nombre );
         // Lo mando a reservas
@@ -35,4 +37,11 @@ form.addEventListener('submit',async(e) => {
         alert('Error de login');
     }
 
+});
+
+//cerrar sesion
+document.getElementById('logout').addEventListener('click', () => {
+    localStorage.clear(); 
+    alert('Sesión cerrada correctamente.');
+    window.location.href = 'index.html'; 
 });
