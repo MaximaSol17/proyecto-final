@@ -74,3 +74,19 @@ button:hover {
     border-radius: 10px;
     
 }
+
+/*boton de cerrar sesion*/
+.boton-logout {
+    background-color: #c0392b;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 20px;
+}
+
+.boton-logout:hover {
+    background-color: #e74c3c;
+}

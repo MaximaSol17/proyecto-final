@@ -3,6 +3,15 @@ const formEditar = document.getElementById('form-editar');
 const editarForm = document.getElementById('editar-form');
 const cancelarEdicion = document.getElementById('cancelar-edicion');
 
+// Verificar que el usuario logueado sea el administrador
+const usuarioLogueado = localStorage.getItem('email');
+
+if (usuarioLogueado !== 'admin@bar.com') {
+    alert('Acceso denegado. Solo el administrador puede acceder.');
+    window.location.href = 'index.html';
+} else {
+    cargarClientes();
+}
 
 async function cargarClientes() {
     const res = await fetch(`http://localhost:3000/clientes`);
@@ -38,8 +47,9 @@ async function eliminarCliente(id) {
     if(res.ok) {
         alert('Cliente eliminado');
         cargarClientes();
-    }
-    alert('Error eliminando cliente');
+    } else {
+        alert('Error eliminando cliente');
+    }  
 };
 
 
@@ -75,13 +85,15 @@ editarForm.addEventListener('submit', async(e) => {
         headers: {'Content-Type':'application/json'},
         body:JSON.stringify({nombre, apellido, email, edad, telefono, contraseña})
     });
-    if(res.ok) {
+    if (res.ok) {
         alert('Cliente actualizado');
         formEditar.style.display = 'none';
         cargarClientes();
     } else {
-        alert('Error actualizando cliente');
-    };
+        const error = await res.json();
+        alert('Error actualizando cliente: ' + error.error);
+    }
+
 });
 
 cancelarEdicion.addEventListener('click', () => {
@@ -89,3 +101,10 @@ cancelarEdicion.addEventListener('click', () => {
 });
 
 cargarClientes();
+
+//cerrar sesion
+document.getElementById('logout').addEventListener('click', () => {
+    localStorage.clear(); 
+    alert('Sesión cerrada correctamente.');
+    window.location.href = 'index.html';
+});
