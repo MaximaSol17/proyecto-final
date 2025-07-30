@@ -29,6 +29,13 @@ app.post('/api/pedidos', (req, res) => {
     res.status(201).json(nuevoPedido);
 });
 
+app.get('/api/pedidos', (req, res) => {
+    const pedidos = fs.existsSync(archivoPedidos)
+        ? JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'))
+        : [];
+
+    res.json(pedidos);
+});
 
 //Read
 app.get('/api/pedidos/:id', (req, res) => {
@@ -62,11 +69,11 @@ app.put('/api/pedidos/:id', (req, res) => {
 });
 
 //Delete
-app.delete('api/pedidos/:id', (req, res) => {
+app.delete('/api/pedidos/:id', (req, res) => {
     const pedidos = JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'));
     const id = parseInt(req.params.id);
 
-    const nuevosPedidos = pedido.filter(p => p.id !== id);
+    const nuevosPedidos = pedidos.filter(p => p.id !== id);
 
     if (nuevosPedidos.length === pedidos.length) {
         return res.status(404).json({ error: 'Pedido no encontrado' });
