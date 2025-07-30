@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "nombre_producto": "Vino Blanco",
+    "precio": 6600,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753906752996
+  },
+  {
+    "nombre_producto": "Vino Rosado",
+    "precio": 8000,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753906767418
+  },
+  {
+    "nombre_producto": "Vino Rojo",
+    "precio": 7000,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753906769535
+  },
+  {
+    "nombre_producto": "Daiquiri",
+    "precio": 6100,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753906772427
+  },
+  {
+    "nombre_producto": "Vino Rojo",
+    "precio": 7000,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753906990483
+  },
+  {
+    "nombre_producto": "Daiquiri",
+    "precio": 6100,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753907007965
+  },
+  {
+    "nombre_producto": "Daiquiri",
+    "precio": 6100,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753907018654
+  },
+  {
+    "nombre_producto": "Daiquiri",
+    "precio": 6100,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753908983608
+  },
+  {
+    "nombre_producto": "Vino Rosado",
+    "precio": 8000,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753908993950
+  },
+  {
+    "nombre_producto": "Merlot",
+    "precio": 10500,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753908997485
+  },
+  {
+    "nombre_producto": "Vino Rojo",
+    "precio": 7000,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753908999758
+  },
+  {
+    "nombre_producto": "Vino Blanco",
+    "precio": 6600,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753909004960
+  },
+  {
+    "nombre_producto": "Tequila Sunshine",
+    "precio": 6500,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753909007703
+  },
+  {
+    "nombre_producto": "Margarita",
+    "precio": 6100,
+    "cantidad": 1,
+    "descripcion": "Pedido desde frontend",
+    "reserva_id": 1,
+    "id": 1753909034133
+  }
+]

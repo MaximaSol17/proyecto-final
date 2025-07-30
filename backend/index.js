@@ -10,17 +10,24 @@ const archivoPedidos = path.join(__dirname, 'pedidos.json');
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+app.get('/admin', (req, res) =>
+{
+  res.sendFile(path.join(__dirname, '../frontend/pedidos-formulario.html'));
+});
+
 //Create
-app.post('/api/pedidos', (req, res) => {
+app.post('/api/pedidos', (req, res) =>
+{
     const nuevoPedido = req.body;
 
-    if (!nuevoPedido.nombre_producto || !nuevoPedido.precio) {
+    if (!nuevoPedido.nombre_producto || !nuevoPedido.precio)
+    {
         return res.status(400).json({ error: 'Faltan campos requeridos' });
     }
 
-    const pedidos = fs.existsSync(archivoPedidos)
-        ? JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'))
-        : [];
+    const pedidos = fs.existsSync(archivoPedidos) ? JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8')) : [];
 
     nuevoPedido.id = Date.now();
     pedidos.push(nuevoPedido);
@@ -29,20 +36,21 @@ app.post('/api/pedidos', (req, res) => {
     res.status(201).json(nuevoPedido);
 });
 
-app.get('/api/pedidos', (req, res) => {
-    const pedidos = fs.existsSync(archivoPedidos)
-        ? JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'))
-        : [];
+app.get('/api/pedidos', (req, res) =>
+{
+    const pedidos = fs.existsSync(archivoPedidos) ? JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8')) : [];
 
     res.json(pedidos);
 });
 
 //Read
-app.get('/api/pedidos/:id', (req, res) => {
+app.get('/api/pedidos/:id', (req, res) =>
+{
     const pedidos = JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'));
     const pedido = pedidos.find(p => p.id === parseInt(req.params.id));
 
-    if (!pedido) {
+    if (!pedido)
+    {
         return res.status(404).json({ error: 'Pedido no encontrado' });
     }
 
@@ -50,15 +58,18 @@ app.get('/api/pedidos/:id', (req, res) => {
 });
 
 //Update
-app.put('/api/pedidos/:id', (req, res) => {
+app.put('/api/pedidos/:id', (req, res) =>
+{
     const pedidos = JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'));
     const index = pedidos.findIndex(p => p.id === parseInt(req.params.id));
 
-    if (index === -1) {
+    if (index === -1)
+    {
         return res.status(404).json({ error: 'Pedido no encontrado' });
     }
 
-    pedidos[index] = {
+    pedidos[index] =
+    {
         ...pedidos[index],
         ...req.body,
         id: pedidos[index].id
@@ -69,13 +80,15 @@ app.put('/api/pedidos/:id', (req, res) => {
 });
 
 //Delete
-app.delete('/api/pedidos/:id', (req, res) => {
+app.delete('/api/pedidos/:id', (req, res) =>
+{
     const pedidos = JSON.parse(fs.readFileSync(archivoPedidos, 'utf-8'));
     const id = parseInt(req.params.id);
 
     const nuevosPedidos = pedidos.filter(p => p.id !== id);
 
-    if (nuevosPedidos.length === pedidos.length) {
+    if (nuevosPedidos.length === pedidos.length)
+    {
         return res.status(404).json({ error: 'Pedido no encontrado' });
     }
 
@@ -83,6 +96,7 @@ app.delete('/api/pedidos/:id', (req, res) => {
     res.json({ mensaje: 'Pedido eliminado con éxito' })
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, () =>
+{
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

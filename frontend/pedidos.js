@@ -17,8 +17,10 @@ function cambiarMenu(direccion)
     slider.style.transform = `translateX(-${indiceMenu * 100}%)`;
 }
 
-async function AgregarAlPedido(nombre, precio) {
-    const pedido = {
+async function AgregarAlPedido(nombre, precio)
+{
+    const pedido =
+    {
         nombre_producto: nombre,
         precio: precio,
         cantidad: 1,
@@ -26,23 +28,31 @@ async function AgregarAlPedido(nombre, precio) {
         reserva_id: 1
     };
 
-    try {
-        const response = await fetch('http://localhost:3000/api/pedidos', {
+    try
+    {
+        const response = await fetch('http://localhost:3000/api/pedidos',
+        {
             method: 'POST',
-            headers: {
+            headers:
+            {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(pedido)
         });
 
-        if (response.ok) {
+        if (response.ok)
+        {
             const data = await response.json();
             alert(`Se agregó ${data.nombre_producto} al pedido correctamente.`);
             console.log(data);
-        } else {
+        }
+        else
+        {
             alert("Error al guardar el pedido.");
         }
-    } catch (err) {
+    }
+    catch (err)
+    {
         console.error(err);
         alert("Fallo la conexión con el servidor.");
     }
@@ -50,11 +60,13 @@ async function AgregarAlPedido(nombre, precio) {
 
 const API_URL = 'http://localhost:3000/api/pedidos';
 
-document.getElementById('formpedido').addEventListener('submit', async function (e) {
+document.getElementById('formpedido').addEventListener('submit', async function (e)
+{
     e.preventDefault();
 
     const id = document.getElementById('id').value;
-    const pedido = {
+    const pedido =
+    {
         nombre_producto: document.getElementById('nombre_producto').value,
         precio: parseFloat(document.getElementById('precio').value),
         cantidad: parseInt(document.getElementById('cantidad').value),
@@ -65,34 +77,43 @@ document.getElementById('formpedido').addEventListener('submit', async function 
     const method = id ? 'PUT' : 'POST';
     const url = id ? `${API_URL}/${id}` : API_URL;
 
-    try {
-        const res = await fetch(url, {
+    try
+    {
+        const res = await fetch(url,
+        {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(pedido)
         });
 
-        if (res.ok) {
+        if (res.ok)
+        {
             document.getElementById('formpedido').reset();
             document.getElementById('id').value = '';
             await cargarPedidos();
-        } else {
+        }
+        else
+        {
             alert('Error al guardar el pedido.');
         }
-    } catch (err) {
+    }
+    catch (err)
+    {
         console.error(err);
         alert('Fallo la conexión con el servidor.');
     }
 });
 
-async function cargarPedidos() {
+async function cargarPedidos()
+{
     const res = await fetch(API_URL);
     const pedidos = await res.json();
 
     const contenedor = document.getElementById('lista-pedidos');
     contenedor.innerHTML = '';
 
-    pedidos.forEach(p => {
+    pedidos.forEach(p =>
+    {
         const div = document.createElement('div');
         div.className = 'pedido';
         div.innerHTML = `
@@ -108,7 +129,8 @@ async function cargarPedidos() {
     });
 }
 
-async function editarPedido(id) {
+async function editarPedido(id)
+{
     const res = await fetch(`${API_URL}/${id}`);
     const p = await res.json();
 
@@ -120,9 +142,13 @@ async function editarPedido(id) {
     document.getElementById('reserva_id').value = p.reserva_id;
 }
 
-async function eliminarPedido(id) {
-    if (confirm('¿Seguro que querés eliminar este pedido?')) {
+async function eliminarPedido(id)
+{
+    if (confirm('¿Seguro que querés eliminar este pedido?'))
+    {
         await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
         await cargarPedidos();
     }
 }
+
+window.onload = cargarPedidos;
