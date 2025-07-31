@@ -23,10 +23,13 @@ form.addEventListener('submit',async(e) => {
 
     if(res.ok) {
         const person = await res.json();
-        
+        console.log('Usuario logueado:', person);
+
         localStorage.setItem('cliente', JSON.stringify(person));
         localStorage.setItem('email', person.email);
-
+        localStorage.setItem('cliente_id', person.id);
+        localStorage.setItem('nombre', person.nombre);
+        localStorage.setItem('apellido', person.apellido);
 
         alert('Login exitoso. Bienvenido ' + person.nombre );
         // Lo mando a reservas

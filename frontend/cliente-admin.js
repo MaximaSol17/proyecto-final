@@ -27,14 +27,17 @@ async function cargarClientes() {
         <td>${cliente.edad}</td>
         <td>${cliente.telefono}</td>
         <td>
-            <button onclick="mostrarEditar(${cliente.id})">Editar</button>
-            <button onclick="eliminarCliente(${cliente.id})">Eliminar</button>
+            <button class="btn-editar">Editar</button>
+            <button class="btn-eliminar">Eliminar</button>
         </td>
         `;
-        tablaClientes.appendChild(tr);
-        
-    });
 
+        // Agregar eventos:
+        tr.querySelector('.btn-editar').addEventListener('click', () => mostrarEditar(cliente.id));
+        tr.querySelector('.btn-eliminar').addEventListener('click', () => eliminarCliente(cliente.id));
+
+        tablaClientes.appendChild(tr);
+    });
 };
 
 
@@ -54,6 +57,7 @@ async function eliminarCliente(id) {
 
 
 async function mostrarEditar(id) {
+    console.log("Clic en Editar para ID:", id);
     const res = await fetch(`http://localhost:3000/clientes/${id}`);
     if(!res.ok) throw new Error ('Cliente no encontrado');
     const cliente = await res.json();
@@ -65,7 +69,7 @@ async function mostrarEditar(id) {
     document.getElementById('editar-edad').value = cliente.edad;
     document.getElementById('editar-telefono').value = cliente.telefono;
     document.getElementById('editar-contraseña').value = cliente.contraseña;
-    formEditar.style.display ='block';
+    formEditar.classList.add('visible');
         
     
 };
@@ -87,7 +91,7 @@ editarForm.addEventListener('submit', async(e) => {
     });
     if (res.ok) {
         alert('Cliente actualizado');
-        formEditar.style.display = 'none';
+        formEditar.classList.remove('visible'); 
         cargarClientes();
     } else {
         const error = await res.json();
@@ -97,8 +101,9 @@ editarForm.addEventListener('submit', async(e) => {
 });
 
 cancelarEdicion.addEventListener('click', () => {
-    formEditar.style.display = 'none';
+    formEditar.classList.remove('visible');
 });
+
 
 cargarClientes();
 

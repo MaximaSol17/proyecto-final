@@ -31,16 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if(res.ok) {
-
             const person = await res.json();
             // Guardar el ID del cliente en localStorage
-            localStorage.setItem('cliente_id', person.id); s
+            localStorage.setItem('cliente_id', person.id); 
+            localStorage.setItem("email", person.email);
             alert('Registro exitoso. Bienvenido');
             // Lo mando a login
             window.location.href = 'clientes.html';
 
         }
         else {
+            console.error('error de registro', error);
 
             const error = await res.text();
             alert('Error de registro' + error);

@@ -31,7 +31,14 @@ function mostrarProductos(menuItems) {
 }
 
 async function AgregarAlPedido(nombre, precio) {
-  const cliente = JSON.parse(localStorage.getItem("cliente"));
+
+  let cliente = null;
+  try {
+    const cliente = JSON.parse(localStorage.getItem("cliente"));
+  } catch (e) {
+    console.error("Cliente invalido en localStorage:", e)
+  }
+  
   const reservaID= localStorage.getItem("reserva_id");
 
   // Redirecciona al formulario de clientes

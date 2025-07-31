@@ -1,4 +1,6 @@
 console.log("reservas.js cargado");
+
+let idEditando = null;
 const cliente_id = localStorage.getItem('cliente_id');
 
 if (!cliente_id) {
@@ -6,10 +8,11 @@ if (!cliente_id) {
     window.location.href = 'clientes.html';
 }
 
-// mostrar el nombre y apellido del cliente en el campo "nombre_cliente" (solo lectura)
+// Mostrar el nombre y apellido del cliente en el campo "nombre_cliente"
 const nombre = localStorage.getItem('nombre');
 const apellido = localStorage.getItem('apellido');
 const inputNombre = document.getElementById('nombre_cliente');
+
 if (inputNombre) {
     inputNombre.value = `${nombre} ${apellido}`;
 }
@@ -21,25 +24,51 @@ form.addEventListener('submit', async (e) => {
 
     const formData = new FormData(form);
     const reserva = {
-        cliente_id: localStorage.getItem('cliente_id'),
+        cliente_id: cliente_id,
         fecha_reserva: formData.get('fecha_reserva'),
         hora: formData.get('hora'),
-        cantidad_personas: formData.get('cantidad_personas'),
+        cantidad_personas: parseInt(formData.get('cantidad_personas')),
         estado: formData.get('estado')
     };
 
-    const res = await fetch('http://localhost:3000/reservas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(reserva)
-    });
+
+    const idEditando = form.dataset.editando;
+    console.log("Modo edición?", !!idEditando);
+    console.log("Reserva a enviar:", reserva);
+
+    let res;
+    if (idEditando) {
+        // Editar reserva existente
+        res = await fetch(`http://localhost:3000/reservas/${idEditando}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reserva)
+        });
+    } else {
+        // Crear nueva reserva
+        res = await fetch('http://localhost:3000/reservas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reserva)
+        });
+    }
 
     if (res.ok) {
-        alert('Reserva creada correctamente');
+        const data = await res.json();
+        alert(idEditando ? 'Reserva actualizada correctamente' : 'Reserva creada correctamente');
+        
+        //guargo el id de la reserva
+        if (!idEditando && data.id) {
+            localStorage.setItem('reserva_id', data.id);
+        } else if (idEditando) {
+            localStorage.setItem('reserva_id', idEditando);
+        }
+        
         form.reset();
-        cargarReservas(); // <-- esto actualiza la lista en pantalla
+        delete form.dataset.editando; // Salgo del modo edición
+        cargarReservas();
     } else {
-        alert('Error al crear la reserva');
+        alert('Error al guardar la reserva');
     }
 });
 
@@ -94,6 +123,9 @@ async function eliminarReserva(id) {
 }
 
 async function editarReserva(id) {
+    const idEditando = form.dataset.editando;
+    console.log("Entrando en modo edición con ID:", id);
+
     const res = await fetch(`http://localhost:3000/reservas/${id}`);
     const reserva = await res.json();
     //recorro cada campo y verifica si existe

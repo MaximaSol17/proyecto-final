@@ -46,25 +46,31 @@ router.post('/', (req, res) => {
     const { fecha_reserva, hora, cantidad_personas, estado, cliente_id } = req.body;
 
     const sql = `
-      INSERT INTO reservas (fecha_reserva, hora, cantidad_personas, estado, cliente_id)
+      INSERT INTO reservas (cliente_id, fecha_reserva, hora, cantidad_personas, estado)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *
     `;
 
-    db.query(sql, [fecha_reserva, hora, cantidad_personas, estado, cliente_id], (err, results) => {
-        if (err) {
-            console.error('Error al guardar reserva:', err);
-            res.status(500).json({ error: err.message });
-        } else {
-            res.status(201).json(results.rows[0]);
-        } 
+    db.query(
+        sql,
+        [cliente_id, fecha_reserva, hora, cantidad_personas, estado],
+        (err, results) => {
+            if (err) {
+                console.error('Error al guardar reserva:', err);
+                res.status(500).json({ error: err.message });
+            } else {
+                res.status(201).json(results.rows[0]);
+        }
     });
+
 });
 
 //editar una reserva existente
 router.put('/:id', (req, res) => {
    const id = req.params.id;
    const { fecha_reserva, hora, cantidad_personas, estado } = req.body;
+   
+   console.log("Recibido PUT para ID:", id);
 
    const query = `
     UPDATE reservas

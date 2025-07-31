@@ -66,14 +66,20 @@ button:hover {
 }
 
 
-#form-editar { 
-    margin-top: 20px; 
-    display: none;  
-    padding: 15px; 
+#form-editar {
+    margin-top: 20px;
+    display: none;
+    padding: 15px;
     color: black;
     border-radius: 10px;
-    
+    background-color: white;
 }
+
+#form-editar.visible {
+    display: block !important;
+}
+
+
 
 /*boton de cerrar sesion*/
 .boton-logout {
