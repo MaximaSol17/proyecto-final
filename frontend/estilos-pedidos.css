@@ -37,6 +37,7 @@ body
 .hero
 {
   padding: 20px;
+  text-align: center;
 }
 
 .fondo-menu-deslizante
@@ -95,12 +96,13 @@ body
   top: 50%;
   transform: translateY(-50%);
   font-size: 24px;
-  background-color: #000000aa;
+  background-color: #222;
   color: white;
   border: none;
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .flechita.left
@@ -153,19 +155,13 @@ button
 
 button:hover
 {
-  opacity: 0.9;
+  opacity: 0.75;
 }
 
 button[type="submit"],
 button:nth-child(1)
 {
   background-color: #007bff;
-  color: white;
-}
-
-button:nth-child(2)
-{
-  background-color: #dc3545;
   color: white;
 }
 
@@ -193,4 +189,42 @@ button:nth-child(2)
 .pedido p
 {
   margin: 4px 0;
+}
+
+.boton-ir
+{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #222;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.2s ease;
+  font-family: 'Merriweather', 'Times New Roman', Times, serif;
+}
+
+.boton-ir:hover
+{
+  opacity: 0.75;
+}
+
+.boton-volver
+{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 10px 20px;
+  background-color: #222;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.2s ease;
+  font-family: 'Merriweather', 'Times New Roman', Times, serif;
+}
+
+.boton-volver:hover
+{
+  opacity: 0.75;
 }
