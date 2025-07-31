@@ -1,0 +1,136 @@
+body {
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(246, 248, 247);
+    background-size: cover;
+    background-position: center;
+    height: 85vh;
+    color: white;
+    margin: 40px;
+}
+
+/*encabezado*/
+.navbar {
+    background-color: rgb(32, 63, 50); 
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 100px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    border-color: white;
+    background-color: #222;
+}
+/*termino encabezado*/
+
+h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color:white;
+    font-style: italic;
+}
+
+.reservas-section {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+} 
+
+form {
+    border: 2px solid white;
+    padding: 40px;
+    margin-bottom: 20px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgb(32, 63, 50);
+    border-radius: 10px;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-style: italic;
+}
+
+form button:hover {
+    background-color: rgb(224, 224, 156);
+}
+
+/*comienzo dando color a mis-reservas*/
+.lista-reservas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+}
+
+.reserva-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.reserva-item p {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 18px;
+}
+
+.reserva-item button {
+    margin-right: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-style: italic;
+}
+
+.reserva-item button:hover {
+    background-color: rgb(224, 224, 156);
+}

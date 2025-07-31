@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Administrar Clientes</title>
+    <link rel="stylesheet" href="clientes-admin.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Administrar Clientes</h1>
+        <button id="logout" class="boton-logout">Cerrar sesión</button>
+        <table id="tabla-clientes">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Edad</th><th>Teléfono</th><th>Contraseña</th><th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- aca se cargan los clientes -->
+            </tbody>
+
+        </table>
+
+        <div id="form-editar">
+            <h3>Editar Cliente</h3>
+            <form id="editar-form">
+                <input type="hidden" id="editar-id" />
+                <label>Nombre: <input type="text" id="editar-nombre" /></label><br/>
+                <label>Apellido: <input type="text" id="editar-apellido" /></label><br/>
+                <label>Email: <input type="email" id="editar-email" /></label><br/>
+                <label>Edad: <input type="number" id="editar-edad" /></label><br/>
+                <label>Teléfono: <input type="text" id="editar-telefono" /></label><br/>
+                <label>Contraseña: <input type="password" id="editar-contraseña" /></label><br/>
+                <button type="submit">Guardar Cambios</button>
+                <button type="button" id="cancelar-edicion">Cancelar</button>
+
+          
+            </form>
+        </div>
+    </div>
+    <script src="cliente-admin.js"></script>
+    
+</body>
+</html>

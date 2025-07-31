@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mis Pedidos</title>
+  <link rel="stylesheet" href="pedidos.css" />
+</head>
+<body>
+  <header>
+    <h1>Mis Pedidos</h1>
+    <nav>
+      <a href="menu.html">Volver al Menú</a>
+      <a href="mis-reservas.html">Mis Reservas</a>
+    </nav>
+  </header>
+
+  <section id="pedido-section">
+    <h2>Pedidos guardados</h2>
+    <table id="tabla-pedidos" borde="1" cellspacing="0" cellpadding="5">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Reserva ID</th>
+          <th>Producto</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-tabla-pedidos">
+        <!-- Aquí se insertan los pedidos -->
+      </tbody>
+    </table>
+
+    <p>Total: $<span id="total-pedido">0.00</span></p>
+
+    <button id="confirmar-pedido">Confirmar Pedido</button>
+    <button id="cancelar-pedido">Cancelar Pedido</button>
+  </section>
+
+  <section id="formulario-pedido-section">
+    <h2 id="titulo-formulario">Agregar pedido</h2>
+    <form id="formpedido">
+      <input type="hidden" id="reserva_id" />
+      <label>
+        Producto:
+        <input type="text" id="nombre_producto" required />
+      </label><br />
+      <label>
+        Descripción:
+        <input type="text" name="descripcion" />
+      </label><br />
+      <label>
+        Precio:
+        <input type="number" id="precio" step="0.01" required />
+      </label><br />
+      <label>
+        Cantidad:
+        <input type="number" id="cantidad" required />
+      </label><br />
+      <button type="submit">Guardar</button>
+    </form>
+  </section>
+
+  <script src="pedidos.js"></script>
+</body>
+</html>
