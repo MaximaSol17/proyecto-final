@@ -11,46 +11,21 @@
     </head>
     <body>
         <form id="formpedido">
-         
-            <input type="hidden" id="id" name="id">
-
-            <label for="reserva_id">
-                ID de reserva
-            </label>
-            <input type="number" id="reserva_id" name="reserva_id" required>
-
-            <label for="nombre_producto">
-                Nombre del Producto
-            </label>
-            <input type="text" id="nombre_producto" name="nombre_producto" required>
-
-            <label for="descripcion">
-                descripcion
-            </label>
-            <input type="text" id="descripcion" name="descripcion" required>
-
-            <label for="precio">
-                Precio
-            </label>
-            <input type="number" id="precio" name="precio" required>
-
-            <label for="cantidad">
-                Cantidad
-            </label>
-            <input type="number" id="cantidad" name="cantidad" required>
-
-            <button type="submit">
-                Guardar pedido
-            </button>
-            
+            <input type="hidden" id="id">
+            <input type="text" id="nombre_producto" placeholder="Nombre del producto" required>
+            <input type="number" id="precio" placeholder="Precio" required>
+            <input type="number" id="cantidad" placeholder="Cantidad" required>
+            <textarea id="descripcion" placeholder="Descripción"></textarea>
+            <button type="submit">Guardar</button>
         </form>
-        <script src="pedidos.js"></script>
-        <hr>
+
         <h2>
             Pedidos actuales
         </h2>
         <div id="lista-pedidos"></div>
 
+        <script src="pedidos.js"></script>
+        <hr>
     </body>
     <a href="pedidos.html" class="boton-volver">← Volver al menú</a>
 </html>
