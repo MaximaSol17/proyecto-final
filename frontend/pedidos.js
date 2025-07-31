@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     const pedido = {
-      reserva_id: document.getElementById('reserva_id').value,
+      reserva_id: parseInt(document.getElementById('reserva_id').value),
       nombre_producto: document.getElementById('nombre_producto').value,
       descripcion: document.querySelector('[name="descripcion"]').value,
       precio: parseFloat(document.getElementById('precio').value),

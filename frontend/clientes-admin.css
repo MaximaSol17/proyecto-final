@@ -83,16 +83,21 @@ button:hover {
 
 /*boton de cerrar sesion*/
 .boton-logout {
-    background-color: #c0392b;
+    background-color: transparent;
     color: white;
-    padding: 10px 15px;
-    border: none;
+    padding: 8px 15px;
+    border: 1px solid transparent;
     border-radius: 5px;
     cursor: pointer;
-    float: right;
-    margin-bottom: 20px;
+    margin-left: 20px;
+    transition: 0.3s;
+    font-family: inherit;
+    font-size: 1rem;
+    display: inline-block; /* para que no se desplace raro */
 }
 
 .boton-logout:hover {
-    background-color: #e74c3c;
+    background-color: #222;
+    border-color: white;
+    color: white;
 }

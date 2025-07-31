@@ -12,11 +12,14 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 const clientesRoutes = require('./routes/clientes');
 const reservasRoutes = require('./routes/reservas');
 const pedidosRoutes = require('./routes/pedidos');
+const menuRouter = require('./routes/menu');
+
 
 // Usar rutas
 app.use('/clientes', clientesRoutes);
 app.use('/reservas', reservasRoutes);
 app.use('/pedidos', pedidosRoutes);
+app.use('/menu', menuRouter);
 
 
 

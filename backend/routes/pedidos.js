@@ -51,16 +51,19 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: 'Completa los campos obligatorios' });
     }
 
-    if (!Number.isInteger(reserva_id) || reserva_id <= 0) {
-    return res.status(400).json({ error: 'reserva_id inválido' });
+    const reservaIdNum = parseInt(reserva_id);
+
+    if (!reservaIdNum || isNaN(reservaIdNum) || reservaIdNum <= 0) {
+        return res.status(400).json({ error: 'reserva_id inválido' });
     }
+
 
 
     try {
         const result = await db.query(
             `INSERT INTO pedidos (reserva_id, nombre_producto, descripcion, precio, cantidad)
             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [reserva_id, nombre_producto, descripcion, precio, cantidad]
+            [reservaIdNum, nombre_producto, descripcion, precio, cantidad]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {

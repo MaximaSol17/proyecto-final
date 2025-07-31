@@ -136,7 +136,6 @@ async function editarReserva(id) {
     }
     //guardo el id de la reserva que estoy editando
     form.dataset.editando = id;
-    window.location.href = 'reservas.html';
 }
 
 const email = localStorage.getItem('email');
