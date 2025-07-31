@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# proyecto-final
-=======
 # Breaking BAR 🍸 (sitio web de bar para reservas de mesa)
 
 Bienvenidos a **Breaking BAR**, una aplicación web pensada para gestionar las reservas, el menú y el registro de clientes de un bar.  
@@ -71,5 +68,4 @@ Máxima de Crescenzo 114024 \
 Julian Baxendale 113804
 
 
->>>>>>> prueba-1
 
