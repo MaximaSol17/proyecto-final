@@ -3,6 +3,7 @@ console.log("reservas.js cargado");
 let idEditando = null;
 const cliente_id = localStorage.getItem('cliente_id');
 
+
 if (!cliente_id) {
     alert('Primero debes iniciar sesión.');
     window.location.href = 'clientes.html';

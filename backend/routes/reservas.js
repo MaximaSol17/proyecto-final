@@ -89,7 +89,7 @@ router.put('/:id', (req, res) => {
             } else if (result.rowCount === 0) {
                 res.status(404).send('Reserva no encontrada');
             } else {
-                res.send('Reserva actualizada correctamente');
+                res.json({ mensaje: 'Reserva actualizada correctamente' });
             }
         }    
     );
