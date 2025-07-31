@@ -1,0 +1,103 @@
+body {
+    /*APlico el mismo diseño que los otros template */
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(73, 207, 140);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    margin: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor {
+    background-color: rgba(37, 32, 32, 0.75);
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1100px;
+}
+h1,h3 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin-bottom: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+}
+
+th, td { 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    text-align: center; 
+}
+
+th {
+    background-color:#333;
+    color: white;
+}
+
+button { 
+    margin: 2px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer; 
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#cancelar-edicion {
+    background-color: #dc3545;
+    color:white;
+}
+
+
+#form-editar {
+    margin-top: 20px;
+    display: none;
+    padding: 15px;
+    color: black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#form-editar.visible {
+    display: block !important;
+}
+
+
+
+/*boton de cerrar sesion*/
+.boton-logout {
+    background-color: transparent;
+    color: white;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: 0.3s;
+    font-family: inherit;
+    font-size: 1rem;
+    display: inline-block; /* para que no se desplace raro */
+}
+
+.boton-logout:hover {
+    background-color: #222;
+    border-color: white;
+    color: white;
+}

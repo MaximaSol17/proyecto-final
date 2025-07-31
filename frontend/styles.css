@@ -1,0 +1,128 @@
+body {
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(73, 207, 140);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+/*encabezado*/
+.navbar {
+    background-color: rgb(32, 63, 50); 
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 100px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    border-color: white;
+    background-color: #222;
+}
+
+
+
+h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color:white;
+    font-style:normal;
+    text-align: center;
+}
+
+.clientes-section {
+    background-color: rgba(221, 215, 213, 0.1);
+    padding: 2em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 100%;
+    padding: 0.5%;
+    border-radius: 5px;
+    
+}
+
+button {
+    width: 100%;
+    padding: 0.7em;
+    background-color: rgb(236, 229, 229);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(87, 76, 76);
+}
+
+p {
+    text-align: center;
+    margin-top: 1em;
+
+}
+
+a {
+    color: rgb(87, 76, 76);
+}
+
+/*boton de cerrar sesion*/
+.boton-logout {
+    background-color: transparent;
+    color: white;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: 0.3s;
+    font-family: inherit;
+    font-size: 1rem;
+    display: inline-block; 
+}
+
+.boton-logout:hover {
+    background-color: #222;
+    border-color: white;
+    color: white;
+}
+
+
+

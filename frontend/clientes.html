@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>clientes</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header class="navbar">
+            <div class="logo">
+                <img src="nuevo-logo.png" alt="Breaking Bar logo" class="logo-img">
+            </div>
+            <nav class="menu">
+                <a href="clientes.html">Clientes</a>
+                <a href="reservas.html">reservas</a>
+                <a href="menu.html">Menu</a>
+                <a href="donde-estamos.html">Dónde estamos</a>
+                <a href="https://www.instagram.com/ingenieriauba?igsh=MWxwaHMxY3lqcTJoMw==" target="_blank">Instagram</a>
+        <!--el target _blanck lo uso para que se abra una nueva pestaña sin que el usuario salga del sitio web-->
+                <button id="logout" class="boton-logout">Cerrar sesión</button>
+            </nav>
+        </header>
+
+        <!-- agrupo el formulario con un id y una clase para agregarle estilos-->
+        <section id="clientes" class="clientes-section">
+            <!-- form crea un formulario para login con un id-->
+            <form id="form-clientes">
+                <!-- con h2 titulo visible en el formulario-->
+                <h2>Login</h2>
+                <!-- el div el contenedor de html para agrupar los elementos y poder aplicarle los estlos-->
+                 <!--la clase field lo uso para aplicar estilos en grupo-->
+                <div class="field">
+                    <!-- p es un parrado y la clase control es para un elemento de formulario-->
+                     <!-- h as-icons-left y has-icons-right indican que dentro del control hay iconos a la izquierda y a la derecha del input, lo uso para posicionar los iconos-->
+                      <!-- me guiè de los frameworks para poder diseñarlo -->
+                    <p class="control has-icons-left has-icons-right" >
+                        <input id="email" class="input" type="email" placeholder="Email">
+                        <!-- los span y i son para iconos decorativos sacados de librerias-->
+                        <span class="icon is-small is-right">
+                            <i class="far fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="far fa-check"></i>
+                        </span>
+
+                    </p>
+                
+                </div>
+                <!-- Lo mismo para contraseña-->
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input id="contraseña" class="input" type="password" placeholder="Contraseña">
+                        <span class="icon is-small is-right">
+                            <i class="far fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="far fa-envelope"></i>
+                        </span>
+                    </p>
+                </div>
+                <!-- Boton para enviar formulario-->
+
+                <button type="submit"> Ingresar y reservar </button>
+
+                <p> ¿No tenes cuenta? <a href="registro.html">Registrarse</a></p>
+            
+                
+
+            </form>
+
+        </section>
+        <script src="clientes.js"></script>
+    </body>
+ 
+</html>

@@ -1,0 +1,97 @@
+body {
+    background-image: url("https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg");
+    background-color: rgb(50, 102, 76);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: rgb(255, 253, 253);
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estilo del encabezado */
+header {
+    background-color: rgb(50, 102, 76);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Sección de pedido */
+#pedido-section {
+    background-color: rgba(0, 0, 0, 0.6);
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#pedido-section h2 {
+    margin-top: 0;
+}
+
+#lista-pedidos {
+    list-style: none;
+    padding: 0;
+}
+
+#lista-pedidos li {
+    margin-bottom: 5px;
+}
+
+/* Formulario */
+form {
+    background-color: rgba(37, 32, 32, 0.75);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    color: black;
+    background-color: white;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #837777;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #331c1c;
+    opacity: 0.9;
+}
