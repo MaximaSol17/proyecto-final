@@ -34,7 +34,7 @@ async function AgregarAlPedido(nombre, precio) {
 
   let cliente = null;
   try {
-    const cliente = JSON.parse(localStorage.getItem("cliente"));
+    cliente = JSON.parse(localStorage.getItem("cliente"));
   } catch (e) {
     console.error("Cliente invalido en localStorage:", e)
   }
@@ -84,4 +84,22 @@ async function AgregarAlPedido(nombre, precio) {
 
 
 };
+
+let indiceMenu = 0;
+
+function cambiarMenu(direccion) {
+  const contenedor = document.querySelector('.contenedor-menu-deslizante');
+  const menus = document.querySelectorAll('.menu-deslizante');
+
+  indiceMenu += direccion;
+
+  if (indiceMenu < 0) {
+    indiceMenu = menus.length - 1;
+  } else if (indiceMenu >= menus.length) {
+    indiceMenu = 0;
+  }
+
+  const desplazamiento = -indiceMenu * 100;
+  contenedor.style.transform = `translateX(${desplazamiento}%)`;
+}
 

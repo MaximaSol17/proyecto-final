@@ -14,6 +14,21 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+router.get('/reserva/:reserva_id', async (req, res) => {
+  const { reserva_id } = req.params;
+  try {
+    const result = await db.query(
+      'SELECT * FROM pedidos WHERE reserva_id = $1 ORDER BY id',
+      [reserva_id]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 //obtener el pedido por id
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
@@ -35,6 +50,11 @@ router.post('/', async (req, res) => {
     if  (!reserva_id || !nombre_producto || !precio || !cantidad) {
         return res.status(400).json({ error: 'Completa los campos obligatorios' });
     }
+
+    if (!Number.isInteger(reserva_id) || reserva_id <= 0) {
+    return res.status(400).json({ error: 'reserva_id inválido' });
+    }
+
 
     try {
         const result = await db.query(
