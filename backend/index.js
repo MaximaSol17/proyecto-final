@@ -12,11 +12,6 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-app.get('/admin', (req, res) =>
-{
-  res.sendFile(path.join(__dirname, '../frontend/pedidos-formulario.html'));
-});
-
 //Create
 app.post('/api/pedidos', (req, res) =>
 {
