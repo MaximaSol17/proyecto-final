@@ -1,3 +1,4 @@
+
 # Breaking BAR 🍸 (sitio web de bar para reservas de mesa)
 
 Bienvenidos a **Breaking BAR**, una aplicación web pensada para gestionar las reservas, el menú y el registro de clientes de un bar.  
@@ -61,7 +62,7 @@ docker compose up --build
 ```
 Este ultimo comando levantará tanto la base de datos, como el backend y el frontend
 
----
+
 ## ✍️ Integrantes
 Sofía Aylen Lopez 112613 \
 Máxima de Crescenzo 114024 \
