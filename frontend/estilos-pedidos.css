@@ -1,24 +1,61 @@
 body
 {
-  font-family: 'Merriweather', 'Times New Roman', Times, serif;
-  background-color: #f4f4f4;
+  background-color: rgb(86, 190, 159);
+  color: white;
   margin: 0;
-  padding: 0;
-  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar
 {
+  background-color: rgb(32, 63, 50);
+  padding: 10px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #222;
-  padding: 10px 20px;
+}
+
+.logo
+{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo h1
+{
+  color: rgb(80, 175, 143);
+  font-size: 36px;
+  font-family: 'Merriweather', serif;
+  margin: 0;
+}
+
+.logo span
+{
+  color: white;
+  font-size: 16px;
 }
 
 .logo-img
 {
-  height: 50px;
+    height: 100px;
+}
+
+nav a
+{
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  padding: 8px 15px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+
+/*lo siguiente, (hover) lo hago para que cuando pase el mouse por encima salga un cudradito en cada template  */
+nav a:hover
+{
+  border-color: white;
+  background-color: #222;
 }
 
 .menu a
@@ -36,8 +73,38 @@ body
 
 .hero
 {
-  padding: 20px;
+  position: relative;
+  background-image: url('https://wallpapers.com/images/hd/pouring-martini-cocktail-on-glass-e8dyoylw4pof6prw.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
+  padding-bottom: 40px;
+}
+
+.hero h1
+{
+  font-size: 48px;
+  margin: 0;
+}
+
+.hero h2
+{
+  font-size: 40px;
+  margin: 0;
+  font-family: 'Libertinus Mono', monospace;
+}
+
+.hero p
+{
+  font-size: 30px;
+  margin-top: 10px;
+  font-family:  'Libertinus Mono', monospace;
 }
 
 .fondo-menu-deslizante
@@ -68,13 +135,19 @@ body
 
 .producto
 {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background-color: white;
+  border-radius: 10px;
   padding: 16px;
   width: 200px;
-  text-align: center;
-  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.producto h3
+{
+  font-family: 'Libertinus Mono', monospace;
+  font-size: 1.2rem;
+  margin: 10;
+  color: black;
 }
 
 .productos-img
@@ -86,23 +159,63 @@ body
 
 .precio
 {
-  font-weight: bold;
-  color: #555;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
+  font-family: 'Libertinus Mono', monospace;
+}
+
+.fondo-menu-deslizante
+{
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 40px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.contenedor-menu-deslizante
+{
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.menu-deslizante
+{
+  flex: 0 0 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.menu-deslizante h2
+{
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-family: 'Merriweather', serif;
+  color:black;
 }
 
 .flechita
 {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  background-color: #222;
-  color: white;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
   border: none;
-  border-radius: 50%;
-  padding: 10px;
+  font-size: 3rem;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: 0.2s ease;
+  border-radius: 50%;
+}
+
+.flechita:hover
+{
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  transition: 0.3s;
 }
 
 .flechita.left
@@ -145,7 +258,6 @@ form input
 button
 {
   padding: 10px 16px;
-  margin-top: 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -156,6 +268,11 @@ button
 button:hover
 {
   opacity: 0.75;
+}
+
+.submit-button
+{
+  margin-top: 20px;
 }
 
 button[type="submit"],
